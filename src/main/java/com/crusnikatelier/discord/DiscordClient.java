@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import javax.xml.bind.JAXBException;
@@ -21,7 +23,7 @@ public class DiscordClient {
 	private static DiscordWebSocketClient discordWsClient;
 	private String url;
 	
-	public DiscordClient() throws IOException, JAXBException, InterruptedException{
+	public DiscordClient() throws IOException, JAXBException, InterruptedException, KeyManagementException, NoSuchAlgorithmException{
 		GatewayResponse gr = getGatewayResponse();
 		URI websocketUri = URI.create(gr.getUrl());
 		discordWsClient = new DiscordWebSocketClient(websocketUri);

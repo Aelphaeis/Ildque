@@ -1,9 +1,14 @@
 package com.crusnikatelier.discord;
 
 import java.net.URI;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
+import javax.net.ssl.SSLContext;
+
 import org.java_websocket.WebSocket;
+import org.java_websocket.client.DefaultSSLWebSocketClientFactory;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ClientHandshake;
@@ -11,8 +16,12 @@ import org.java_websocket.handshake.ServerHandshake;
 
 public class DiscordWebSocketClient extends WebSocketClient {
 
-	public DiscordWebSocketClient(URI serverURI) {
+	public DiscordWebSocketClient(URI serverURI) throws KeyManagementException, NoSuchAlgorithmException {
 		super(serverURI);
+		
+		SSLContext context = SSLContext.getInstance("TLS");
+		context.init(null, null, null);
+		setWebSocketFactory(new DefaultSSLWebSocketClientFactory(context));
 	}
 
 	@Override
