@@ -28,7 +28,6 @@ public class DiscordClient {
 		URI websocketUri = URI.create(gr.getUrl());
 		discordWsClient = new DiscordWebSocketClient(websocketUri);
 		discordWsClient.connectBlocking();
-		
 	}
 	
 	

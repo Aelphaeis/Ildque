@@ -7,8 +7,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import com.crusnikatelier.discord.DiscordClient;
-import com.crusnikatelier.discord.pojos.GatewayResponse;
-import com.crusnikatelier.utilities.MarshalHelper;
 
 public class Program {
 	
@@ -18,7 +16,6 @@ public class Program {
 	public static void main(String[] args) throws Throwable {
 		DiscordClient dc = new DiscordClient();
 		System.out.println(dc.getGatewayResponse().getUrl());
-		
 	}
 	
 	

@@ -1,11 +1,13 @@
 package com.crusnikatelier.discord;
 
 import java.net.URI;
+import java.nio.channels.NotYetConnectedException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
 import javax.net.ssl.SSLContext;
+import javax.xml.bind.JAXBException;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.client.DefaultSSLWebSocketClientFactory;
@@ -13,6 +15,9 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.handshake.ServerHandshake;
+
+import com.crusnikatelier.discord.pojos.Operation;
+import com.crusnikatelier.utilities.MarshalHelper;
 
 public class DiscordWebSocketClient extends WebSocketClient {
 
@@ -26,23 +31,18 @@ public class DiscordWebSocketClient extends WebSocketClient {
 
 	@Override
 	public void onOpen(ServerHandshake handshakedata) {
-		System.out.print("onOpen");
-
-		System.out.print(handshakedata);
-		// TODO Auto-generated method stub
-		
+		System.out.println("onOpen");
 	}
 
 	@Override
 	public void onMessage(String message) {
-		System.out.print(message);
-		// TODO Auto-generated method stub
-		
+		System.out.println("onMessage");
+		System.out.println(message);
 	}
 
 	@Override
 	public void onClose(int code, String reason, boolean remote) {
-		System.out.print(reason);
+		System.out.println(reason);
 		// TODO Auto-generated method stub
 		
 	}
@@ -52,20 +52,4 @@ public class DiscordWebSocketClient extends WebSocketClient {
 		ex.printStackTrace();
 		// TODO Auto-generated method stub
 	}
-
-	
-	@Override
-	public void onWebsocketHandshakeSentAsClient( WebSocket conn, ClientHandshake request ){
-		
-		//System.out.println(new String(request.getContent()));
-		Iterator<String> it =  request.iterateHttpFields();
-		while(it.hasNext()){
-			String field = it.next();
-			System.out.println(field + " : " + request.getFieldValue(field));
-		}
-		
-		System.out.println("onWebsocketHandshakeSentAsClient");
-		
-	}
-
 }
