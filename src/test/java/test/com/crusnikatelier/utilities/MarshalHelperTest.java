@@ -17,7 +17,6 @@ public class MarshalHelperTest {
 		GatewayResponse resp = (GatewayResponse) MarshalHelper.unmarshalJson(json, GatewayResponse.class);
 		
 		assertNotNull(resp);
-		assertEquals("wss://gateway.discord.gg", resp.getUrl());
+		assertEquals("wss://gateway.discord.gg/", resp.getUrl());
 	}
-
 }

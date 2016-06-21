@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import com.crusnikatelier.discord.pojos.*;
+import javax.xml.transform.stream.StreamSource;
 
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 
@@ -22,9 +22,8 @@ public class MarshalHelper {
 		unmarshaller.setProperty(JAXBContextProperties.MEDIA_TYPE, MEDIA_TYPE);
 		unmarshaller.setProperty(JAXBContextProperties.JSON_INCLUDE_ROOT, false);
 		
-		StringReader reader = new StringReader(json);
-		Object result = unmarshaller.unmarshal(reader);
-		return result;
+		StreamSource streamSource = new StreamSource(new StringReader(json));
+		return unmarshaller.unmarshal(streamSource, clazz).getValue();
 	}
 	
 	public static String marshallJson(Object obj) throws JAXBException{
