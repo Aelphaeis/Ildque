@@ -15,7 +15,7 @@ import org.eclipse.persistence.jaxb.JAXBContextProperties;
 public class MarshalHelper {
 	public static final String MEDIA_TYPE = "application/json";
 	
-	public static Object unmarshalJson(String json, Class<?> clazz) throws JAXBException {
+	public static <T> T unmarshalJson(String json, Class<T> clazz) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(clazz);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		
@@ -26,7 +26,7 @@ public class MarshalHelper {
 		return unmarshaller.unmarshal(streamSource, clazz).getValue();
 	}
 	
-	public static String marshallJson(Object obj) throws JAXBException{
+	public static <T> String marshallJson(T obj) throws JAXBException{
 		JAXBContext context = JAXBContext.newInstance(obj.getClass());
 		Marshaller marshaller = context.createMarshaller();
 		
