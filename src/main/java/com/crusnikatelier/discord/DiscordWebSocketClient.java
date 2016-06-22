@@ -1,25 +1,19 @@
 package com.crusnikatelier.discord;
 
 import java.net.URI;
-import java.nio.channels.NotYetConnectedException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
-
 import javax.net.ssl.SSLContext;
-import javax.xml.bind.JAXBException;
 
-import org.java_websocket.WebSocket;
 import org.java_websocket.client.DefaultSSLWebSocketClientFactory;
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft_17;
-import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.handshake.ServerHandshake;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.crusnikatelier.discord.pojos.Operation;
-import com.crusnikatelier.utilities.MarshalHelper;
 
 public class DiscordWebSocketClient extends WebSocketClient {
+	Logger logger = LoggerFactory.getLogger(getClass());
 
 	public DiscordWebSocketClient(URI serverURI) throws KeyManagementException, NoSuchAlgorithmException {
 		super(serverURI);
@@ -31,25 +25,21 @@ public class DiscordWebSocketClient extends WebSocketClient {
 
 	@Override
 	public void onOpen(ServerHandshake handshakedata) {
-		System.out.println("onOpen");
+		logger.debug("Socket Opened");
 	}
 
 	@Override
 	public void onMessage(String message) {
-		System.out.println("onMessage");
-		System.out.println(message);
+		logger.trace("Message Recieved : { }", message);
 	}
 
 	@Override
 	public void onClose(int code, String reason, boolean remote) {
-		System.out.println(reason);
-		// TODO Auto-generated method stub
-		
+		logger.debug("Socket Closed : { }");
 	}
 
 	@Override
 	public void onError(Exception ex) {
-		ex.printStackTrace();
-		// TODO Auto-generated method stub
+		logger.error("Discord Websocket has encountered an error", ex);
 	}
 }
