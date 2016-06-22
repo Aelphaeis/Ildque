@@ -1,57 +1,19 @@
 package com.crusnikatelier.ildque.driver;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.discord.DiscordClient;
 
 public class Program {
 	
-	public final static String BASE_URL = "wss://gateway.discord.gg/";
-	public final static String DISCORD_URL = "https://discordapp.com/api";
-			
 	public static void main(String[] args) throws Throwable {
+		Logger logger = LoggerFactory.getLogger(Program.class);
+		logger.info("Initializing Ilqdue");
 		DiscordClient dc = new DiscordClient();
-		System.out.println(dc.getGatewayResponse().getUrl());
-	}
-	
-	
-	
-	public static void wscTest() throws InterruptedException, URISyntaxException{
-
-		String url = BASE_URL;
+		logger.info("Starting Ilqdue");
 		
-		WebSocketClient wsc = new WebSocketClient(new URI(url)){
-
-			@Override
-			public void onOpen(ServerHandshake handshakedata) {
-				System.out.println(handshakedata);
-			}
-
-			@Override
-			public void onMessage(String message) {
-				System.out.println(message);
-				
-			}
-
-			@Override
-			public void onClose(int code, String reason, boolean remote) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void onError(Exception ex) {
-				ex.printStackTrace();
-			}
-		};
-		
-		System.out.println("Attempting Connect");
-		wsc.connectBlocking();
-		wsc.send("");
+		logger.info("Ilqdue started");
 		
 	}
-
 }

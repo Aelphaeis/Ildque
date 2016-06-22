@@ -19,18 +19,17 @@ import com.crusnikatelier.utilities.MarshalHelper;
 
 public class DiscordClient {
 	public final static String BASE_URL = "https://discordapp.com/api";
-	
-	private static DiscordWebSocketClient discordWsClient;
-	private String url;
+	private DiscordWebSocketClient discordWsClient;
 	
 	public DiscordClient() throws IOException, JAXBException, InterruptedException, KeyManagementException, NoSuchAlgorithmException{
 		GatewayResponse gr = getGatewayResponse();
 		URI websocketUri = URI.create(gr.getUrl());
 		discordWsClient = new DiscordWebSocketClient(websocketUri);
-		discordWsClient.connectBlocking();
 	}
 	
-	
+	public void Run() throws InterruptedException{
+		discordWsClient.connectBlocking();
+	}
 	
 	public GatewayResponse getGatewayResponse() throws IOException, JAXBException {
 		URL url = new URL(BASE_URL + GatewayResponse.REQUEST_PATH);
