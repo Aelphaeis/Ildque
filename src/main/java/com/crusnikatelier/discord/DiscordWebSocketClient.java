@@ -30,12 +30,18 @@ public class DiscordWebSocketClient extends WebSocketClient {
 
 	@Override
 	public void onMessage(String message) {
-		logger.trace("Message Recieved : { }", message);
+		logger.trace("Message Recieved : {}", message);
 	}
 
 	@Override
 	public void onClose(int code, String reason, boolean remote) {
-		logger.debug("Socket Closed : { }");
+		logger.debug("Socket Closed : {}");
+	}
+	
+	@Override
+	public void send(String text) throws java.nio.channels.NotYetConnectedException {
+		logger.debug("sending : " +  text);
+		super.send(text);
 	}
 
 	@Override

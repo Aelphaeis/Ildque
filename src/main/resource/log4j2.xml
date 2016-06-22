@@ -7,7 +7,10 @@
     </Console>
   </Appenders>
   <Loggers>
-    <Root level="debug">
+  	<Logger name="org.eclipse.jetty"  level="error">
+  		<AppenderRef ref="Console"/>
+  	</Logger>
+    <Root level="trace">
       <AppenderRef ref="Console"/>
     </Root>
   </Loggers>

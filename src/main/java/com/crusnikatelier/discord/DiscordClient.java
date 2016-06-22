@@ -14,12 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.discord.pojos.GatewayResponse;
-import com.crusnikatelier.ildque.driver.Program;
 import com.crusnikatelier.utilities.MarshalHelper;
 
 public class DiscordClient {
 	public final static String BASE_URL = "https://discordapp.com/api";
 	private DiscordWebSocketClient discordWsClient;
+	private String clientId;
 	
 	public DiscordClient() throws IOException, JAXBException, InterruptedException, KeyManagementException, NoSuchAlgorithmException{
 		GatewayResponse gr = getGatewayResponse();
@@ -27,8 +27,15 @@ public class DiscordClient {
 		discordWsClient = new DiscordWebSocketClient(websocketUri);
 	}
 	
+	public DiscordClient(String clientId) throws KeyManagementException, NoSuchAlgorithmException, IOException, JAXBException, InterruptedException{
+		this();
+		setClientId(clientId);
+	}
+	
 	public void Run() throws InterruptedException{
 		discordWsClient.connectBlocking();
+		String gIdentity = "{ 'op', '2', 'token' : '%s', 'properties' : { }, 'compress' : false, 'large_threshold':250, shard:[0,1]}"; 
+		discordWsClient.send(String.format(gIdentity, clientId));
 	}
 	
 	public GatewayResponse getGatewayResponse() throws IOException, JAXBException {
@@ -54,5 +61,13 @@ public class DiscordClient {
 		catch(MalformedURLException e){
 			throw e;
 		}
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 }

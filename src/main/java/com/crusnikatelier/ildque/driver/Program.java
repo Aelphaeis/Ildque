@@ -3,17 +3,16 @@ package com.crusnikatelier.ildque.driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.crusnikatelier.discord.DiscordClient;
+
+import sx.blah.discord.api.ClientBuilder;
+import sx.blah.discord.api.IDiscordClient;
 
 public class Program {
 	
 	public static void main(String[] args) throws Throwable {
-		Logger logger = LoggerFactory.getLogger(Program.class);
-		logger.info("Initializing Ilqdue");
-		DiscordClient dc = new DiscordClient();
-		logger.info("Starting Ilqdue");
-		dc.Run();
-		logger.info("Ilqdue started");
+		if(args.length > 0){
+			IDiscordClient client = new ClientBuilder().withToken(args[0]).login();
+		}
 		
 	}
 }
