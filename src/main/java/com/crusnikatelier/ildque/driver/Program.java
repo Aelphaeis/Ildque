@@ -12,7 +12,7 @@ public class Program {
 		logger.info("Initializing Ilqdue");
 		DiscordClient dc = new DiscordClient();
 		logger.info("Starting Ilqdue");
-		
+		dc.Run();
 		logger.info("Ilqdue started");
 		
 	}
