@@ -10,7 +10,7 @@ public class BotConfiguration {
 	
 	public BotConfiguration() {
 		//Default bot configuration
-		setCommandPrefix("Ilqdue");
+		setCommandPrefix("Ilqdue ");
 	}
 
 	@XmlElement
