@@ -10,6 +10,7 @@ import sx.blah.discord.util.DiscordException;
 
 public class Bot implements Runnable {
 	private static final Logger logger = LoggerFactory.getLogger(Bot.class);
+	private BotConfiguration configuration;
 	private IDiscordClient serviceClient;
 	
 	public Bot(String []  args) throws DiscordException{
