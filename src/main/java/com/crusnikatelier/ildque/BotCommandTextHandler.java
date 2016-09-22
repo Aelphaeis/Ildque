@@ -6,7 +6,7 @@ import java.util.List;
 import com.crusnikatelier.ildque.commands.TerminateCommand;
 import com.crusnikatelier.utilities.StringHelper;
 
-import sx.blah.discord.api.IListener;
+import  sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 
 public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
