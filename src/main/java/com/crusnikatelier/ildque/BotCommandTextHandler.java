@@ -66,7 +66,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 		
 		for(BotCommand command : commands){
 			if(command.getName().equals(argv[0])){
-				command.execute(event.getClient(), argv);
+				command.execute(event, argv);
 			}
 		}
 	}

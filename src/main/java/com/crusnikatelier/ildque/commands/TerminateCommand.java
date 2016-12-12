@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.crusnikatelier.ildque.BotCommand;
 
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.api.events.Event;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RateLimitException;
 
@@ -26,9 +27,11 @@ public class TerminateCommand implements BotCommand {
 	}
 
 	@Override
-	public void execute(IDiscordClient caller, String[] argv) {
+	public void execute(Event event, String[] argv) {
 		try {
-			caller.logout();
+			IDiscordClient client = event.getClient();
+			client.logout();
+			
 			logger.info("successfully logged out of discord");
 		} 
 		catch (RateLimitException | DiscordException e) {
