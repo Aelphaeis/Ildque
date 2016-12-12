@@ -21,7 +21,7 @@ public class UsersCommand implements BotCommand {
 	
 	Logger logger = LoggerFactory.getLogger(UsersCommand.class);
 	
-	private static final String responseFormat = "%s --- %s --- %s";
+	private static final String responseFormat = "%20s --- %20s --- %20s";
 
 	@Override
 	public String getName() {
@@ -51,12 +51,13 @@ public class UsersCommand implements BotCommand {
 		List<IUser> presentUsers = chan.getUsersHere();
 		
 		//Build response
-		StringBuilder responseBuilder = new StringBuilder();
+		StringBuilder responseBuilder = new StringBuilder("```");
 		for(IUser user : presentUsers){
 			String line = String.format(responseFormat, user.getName(), "", user.getID());
-			responseBuilder.append(line);
+			responseBuilder.append(line);	
 			responseBuilder.append("\n");
 		}
+		responseBuilder.append("```");
 		
 		//Send response back
 		try {
