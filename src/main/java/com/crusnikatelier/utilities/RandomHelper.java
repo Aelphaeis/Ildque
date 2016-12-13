@@ -32,6 +32,10 @@ public class RandomHelper {
 		return generator.nextInt();
 	}
 	
+	public int getAbsInt(){
+		return Math.abs(getInt());
+	}
+	
 	public long getLong(){
 		byte [] bArr = new byte[8];
 		generator.nextBytes(bArr);
