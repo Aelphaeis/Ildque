@@ -51,21 +51,27 @@ public class UsersCommand implements BotCommand {
 		List<IUser> presentUsers = chan.getUsersHere();
 		
 		//Build response
+		String response = formatUserString(presentUsers);
+		
+		//Send response back
+		try {
+			chan.sendMessage(response);
+		} 
+		catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+			logger.error("Unable to send command response", e);
+		}
+	}
+	
+	private String formatUserString(List<IUser> users){
+		//Build response
 		StringBuilder responseBuilder = new StringBuilder("```");
 		responseBuilder.append(headerFormat + "\n");
-		for(IUser user : presentUsers){
+		for(IUser user : users){
 			String line = String.format(responseFormat, user.getName(), "", user.getID());
 			responseBuilder.append(line);	
 			responseBuilder.append("\n");
 		}
 		responseBuilder.append("```");
-		
-		//Send response back
-		try {
-			chan.sendMessage(responseBuilder.toString());
-		} 
-		catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-			logger.error("Unable to send command response", e);
-		}
+		return responseFormat.toString();
 	}
 }
