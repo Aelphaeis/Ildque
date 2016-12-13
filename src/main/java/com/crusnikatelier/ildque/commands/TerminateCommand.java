@@ -23,6 +23,7 @@ public class TerminateCommand implements BotCommand {
 	@Override
 	public Options getOptions() {
 		Options options = new Options();
+		options.addOption("", "terminates the bot");
 		return options;
 	}
 
