@@ -6,6 +6,7 @@ import org.apache.commons.cli.OptionGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.crusnikatelier.ildque.Bot;
 import com.crusnikatelier.ildque.BotCommand;
 
 import sx.blah.discord.api.events.Event;
@@ -35,7 +36,7 @@ public class UsersCommand implements BotCommand {
 	}
 
 	@Override
-	public void execute(Event event, String[] argv) {
+	public void execute(Bot bot,Event event, String[] argv) {
 		//Just check to make sure that a cast won't fail
 		if(!(event instanceof MessageReceivedEvent)){
 			String err = "Unable to process command because event is not of type %s";

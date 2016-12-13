@@ -19,8 +19,10 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	public static final String COMMAND_PACKAGE = "com.crusnikatelier.ildque.commands";
 	private static final Logger logger = LoggerFactory.getLogger(BotCommandTextHandler.class);
 	List<BotCommand> commands;
+	Bot bot;
 	
 	public BotCommandTextHandler(Bot bot) {
+		this.bot = bot;
 		String pkgInfo = COMMAND_PACKAGE + "." + "package-info";
 		commands = new ArrayList<BotCommand>();
 		try {
@@ -66,7 +68,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 		
 		for(BotCommand command : commands){
 			if(command.getName().equals(argv[0])){
-				command.execute(event, argv);
+				command.execute(bot, event, argv);
 			}
 		}
 	}
