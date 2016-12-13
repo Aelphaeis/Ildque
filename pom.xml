@@ -34,6 +34,12 @@
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
+		<!--  Mockito -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>2.2.19</version>
+		</dependency>
 		<!--  logging implementation -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
