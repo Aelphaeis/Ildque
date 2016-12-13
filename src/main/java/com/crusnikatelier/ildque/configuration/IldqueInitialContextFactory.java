@@ -6,7 +6,7 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
 
-public class IndqueInitialContextFactory implements InitialContextFactory {
+public class IldqueInitialContextFactory implements InitialContextFactory {
 
 	@Override
 	public Context getInitialContext(Hashtable<?, ?> environment) throws NamingException {
