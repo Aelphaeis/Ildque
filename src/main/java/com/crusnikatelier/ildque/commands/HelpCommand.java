@@ -55,10 +55,6 @@ public class HelpCommand implements BotSpecialCommand{
 			if(isDefaultHelpRequest(line)){
 				displayGeneralHelp(handler, evt);
 			}
-
-			logger.info(argv.length + " arguments found");
-			logger.info(line.getArgs().length + " arguments not parsed ");
-			
 		}
 		catch (ParseException e) {
 			logger.error("Unable to parse arguments", e);
