@@ -21,7 +21,7 @@ import sx.blah.discord.util.RateLimitException;
 public class UsersCommand implements BotCommand {
 	
 	Logger logger = LoggerFactory.getLogger(UsersCommand.class);
-	private static final String responseFormat = " %1$-20s --- %2$-20s --- %3$-20s ";
+	private static final String responseFormat = " %3$-20s --- %1$-20s ";
 	private static final String headerFormat = String.format(responseFormat, "User", "Nickname", "Id");
 	
 	@Override
