@@ -9,7 +9,11 @@ public class RandomHelper {
 	SecureRandom generator;
 	
 	public RandomHelper(){
-		generator = new SecureRandom();
+		this(new SecureRandom());
+	}
+	
+	public RandomHelper(SecureRandom random){
+		generator = random;
 	}
 	
 	public byte getByte(){
