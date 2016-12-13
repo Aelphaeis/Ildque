@@ -39,6 +39,5 @@ public class TerminateCommand implements BotCommand {
 			logger.error("Unable to terminate bot", e);
 		}
 		logger.info("Terminating self");
-		System.exit(0);
 	}
 }
