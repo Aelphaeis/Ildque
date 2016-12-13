@@ -1,10 +1,9 @@
 package com.crusnikatelier.ildque.commands;
 
-import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.crusnikatelier.ildque.Bot;
 import com.crusnikatelier.ildque.BotCommand;
 
 import sx.blah.discord.api.IDiscordClient;
@@ -22,13 +21,13 @@ public class TerminateCommand implements BotCommand {
 	}
 	
 	@Override
-	public OptionGroup getOptions() {
-		OptionGroup options = new OptionGroup();
+	public Options getOptions() {
+		Options options = new Options();
 		return options;
 	}
 
 	@Override
-	public void execute(Bot bot, Event event, String[] argv) {
+	public void execute(Event event, String[] argv) {
 		try {
 			IDiscordClient client = event.getClient();
 			client.logout();

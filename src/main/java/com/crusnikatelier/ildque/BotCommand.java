@@ -1,11 +1,11 @@
 package com.crusnikatelier.ildque;
 
-import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
 
 import sx.blah.discord.api.events.Event;
 
 public interface BotCommand {
 	String getName();
-	OptionGroup getOptions();
-	void execute(Bot bot, Event event, String[] argv);
+	Options getOptions();
+	void execute(Event event, String[] argv);
 }

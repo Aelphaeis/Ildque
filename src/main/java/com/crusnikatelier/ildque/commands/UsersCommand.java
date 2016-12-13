@@ -2,11 +2,10 @@ package com.crusnikatelier.ildque.commands;
 
 import java.util.List;
 
-import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.crusnikatelier.ildque.Bot;
 import com.crusnikatelier.ildque.BotCommand;
 
 import sx.blah.discord.api.events.Event;
@@ -30,13 +29,13 @@ public class UsersCommand implements BotCommand {
 	}
 
 	@Override
-	public OptionGroup getOptions() {
-		OptionGroup options = new OptionGroup();
+	public Options getOptions() {
+		Options options = new Options();
 		return options;
 	}
 
 	@Override
-	public void execute(Bot bot,Event event, String[] argv) {
+	public void execute(Event event, String[] argv) {
 		//Just check to make sure that a cast won't fail
 		if(!(event instanceof MessageReceivedEvent)){
 			String err = "Unable to process command because event is not of type %s";

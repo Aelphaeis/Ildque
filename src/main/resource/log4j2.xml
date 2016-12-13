@@ -7,8 +7,9 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="org.eclipse.jetty" level="warn" />
+		<Logger name="org.	eclipse.jetty" level="warn" />
 		<Logger name="sx.blah.discord" level="info" />
+		<Logger name="com.crusnikatelier.ildque.commands.HelpCommand" level="info" />
 		<Root level="trace">
 			<AppenderRef ref="Console" />
 		</Root>

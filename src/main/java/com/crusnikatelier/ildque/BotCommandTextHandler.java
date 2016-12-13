@@ -5,6 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +17,7 @@ import com.crusnikatelier.ildque.configuration.BotConfiguration;
 import com.crusnikatelier.utilities.StringHelper;
 
 import jmo.util.Reflector;
+import sx.blah.discord.api.events.Event;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 
@@ -49,7 +55,6 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 			throw new IllegalStateException(msg, e);
 		}
 	}
-	
 	@Override
 	public void handle(MessageReceivedEvent event) {
 		String prefix = BotConfiguration.value(BotConfiguration.Settings.PREFIX);
@@ -68,7 +73,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 		
 		for(BotCommand command : commands){
 			if(command.getName().equals(argv[0])){
-				command.execute(bot, event, argv);
+				command.execute(event, argv);
 			}
 		}
 	}
