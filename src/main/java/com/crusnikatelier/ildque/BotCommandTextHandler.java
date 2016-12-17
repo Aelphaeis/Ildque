@@ -3,6 +3,7 @@ package com.crusnikatelier.ildque;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -62,13 +63,15 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 
 		for (BotCommand command : commands) {
 			if (command.getName().equals(argv[0])) {
-				command.execute(event, argv);
+				String [] args = Arrays.copyOfRange(argv, 1, argv.length);
+				command.execute(event, args);
 			}
 		}
 
 		for (BotSpecialCommand command : specialCommands) {
 			if (command.getName().equals(argv[0])) {
-				command.execute(bot, this, event, argv);
+				String [] args = Arrays.copyOfRange(argv, 1, argv.length);
+				command.execute(bot, this, event, args);
 			}
 		}
 	}
