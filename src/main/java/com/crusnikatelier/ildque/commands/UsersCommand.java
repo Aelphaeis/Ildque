@@ -20,8 +20,10 @@ import sx.blah.discord.util.RateLimitException;
 public class UsersCommand implements BotCommand {
 	
 	Logger logger = LoggerFactory.getLogger(UsersCommand.class);
+	
 	private static final String responseFormat = " %-20s --- %-20s ";
 	private static final String headerFormat = String.format(responseFormat, "Id", "User");
+	private static final String separator = String.format(responseFormat, "--------------------", "--------------------");
 	
 	@Override
 	public String getName() {
@@ -66,6 +68,7 @@ public class UsersCommand implements BotCommand {
 		//Build response
 		StringBuilder responseBuilder = new StringBuilder("```");
 		responseBuilder.append(headerFormat + "\n");
+		responseBuilder.append(separator + "\n");
 		for(IUser user : users){
 			String line = String.format(responseFormat, user.getID(), user.getName());
 			responseBuilder.append(line);	
