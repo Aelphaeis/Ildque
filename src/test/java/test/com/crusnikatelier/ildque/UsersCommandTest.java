@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.junit.Test;
 
+@SuppressWarnings("unused")
 public class UsersCommandTest {
 
 	@Test
