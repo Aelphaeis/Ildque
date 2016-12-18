@@ -8,7 +8,7 @@ public class BotCommandTextHandlerTest {
 
 	@Test
 	public void test() throws ClassNotFoundException {
-		Class.forName("com.crusnikatelier.ildque.commands" + "." + "package-info");
+		Class.forName("com.crusnikatelier.ildque.commands" + "." + "TerminateCommand");
 		Package pkg = Package.getPackage("com.crusnikatelier.ildque.commands");
 		assertNotNull(pkg);
 	}

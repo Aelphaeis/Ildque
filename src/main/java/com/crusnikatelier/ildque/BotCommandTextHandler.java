@@ -31,7 +31,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	public BotCommandTextHandler(Bot bot) {
 		this();
 		this.bot = bot;
-		String pkgInfo = COMMAND_PACKAGE + "." + "package-info";
+		String pkgInfo = COMMAND_PACKAGE + "." + "TerminateCommand";
 		try {
 			Package pkg = Class.forName(pkgInfo).getPackage();
 			List<Class<?>> classes = Reflector.getClassesForPackage(pkg);
