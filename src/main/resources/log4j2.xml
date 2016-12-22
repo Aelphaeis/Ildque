@@ -2,16 +2,22 @@
 <!DOCTYPE xml>
 <Configuration status="WARN">
 	<Appenders>
-		<Console name="Console" target="SYSTEM_OUT">
+		<Console name="console" target="SYSTEM_OUT">
 			<PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
 		</Console>
+		<File name="commandFile" fileName="logs/commands.log">
+			 <PatternLayout pattern="[%-5p] %d : %m%n" />
+		</File>
+		<File name="err" fileName="logs/errors.log">
+			 <PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
+		</File>
 	</Appenders>
 	<Loggers>
-		<Logger name="org.	eclipse.jetty" level="warn" />
-		<Logger name="sx.blah.discord" level="info" />
-		<Logger name="com.crusnikatelier.ildque.commands.HelpCommand" level="info" />
-		<Root level="trace">
-			<AppenderRef ref="Console" />
+		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="info" additivity="false">
+			<AppenderRef ref="commandFile"/>
+		</Logger>
+		<Root level="warn">
+			<AppenderRef ref="err"/>
 		</Root>
 	</Loggers>
 </Configuration>
