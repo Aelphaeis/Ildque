@@ -12,6 +12,7 @@ import com.crusnikatelier.ildque.BotCommandTextHandler;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RateLimitException;
 
@@ -44,10 +45,14 @@ public class TerminateCommandTest {
 		assertEquals(true, isLoggedOut.bool);
 	}
 	
-	public MessageReceivedEvent stubMessageReceivedEvent(String content){
+	private MessageReceivedEvent stubMessageReceivedEvent(String content){
+		
+		IUser author = Mockito.mock(IUser.class);
+		Mockito.when(author.getID()).thenReturn("1234567890");
 		
 		IMessage msg = Mockito.mock(IMessage.class);
 		Mockito.when(msg.getContent()).thenReturn(content); 
+		Mockito.when(msg.getAuthor()).thenReturn(author);
 		
 		MessageReceivedEvent mre = Mockito.mock(MessageReceivedEvent.class);
 		Mockito.when(mre.getMessage()).thenReturn(msg);
