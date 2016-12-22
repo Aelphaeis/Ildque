@@ -19,6 +19,7 @@ import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	public static final String COMMAND_PACKAGE = "com.crusnikatelier.ildque.commands";
 	private static final Logger logger = LoggerFactory.getLogger(BotCommandTextHandler.class);
+	private static final String COMMAND_LOG_FORMAT = "User %s Executing Command : %s";
 	List<BotCommand> commands;
 	List<BotSpecialCommand> specialCommands;
 	Bot bot;
@@ -63,6 +64,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 
 		for (BotCommand command : commands) {
 			if (command.getName().equals(argv[0])) {
+				logCommandCall(event);
 				String [] args = Arrays.copyOfRange(argv, 1, argv.length);
 				command.execute(event, args);
 			}
@@ -70,6 +72,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 
 		for (BotSpecialCommand command : specialCommands) {
 			if (command.getName().equals(argv[0])) {
+				logCommandCall(event);
 				String [] args = Arrays.copyOfRange(argv, 1, argv.length);
 				command.execute(bot, this, event, args);
 			}
@@ -108,5 +111,12 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 				| IllegalArgumentException | InvocationTargetException e) {
 			logger.error("Unable to register command", e);
 		}
+	}
+	
+	private void logCommandCall(MessageReceivedEvent evt){
+		String uid = evt.getMessage().getAuthor().getID();
+		String cmd = evt.getMessage().getContent();
+		String msg = String.format(COMMAND_LOG_FORMAT, uid, cmd);
+		logger.info(msg);
 	}
 }
