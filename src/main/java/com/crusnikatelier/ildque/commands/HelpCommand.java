@@ -63,12 +63,7 @@ public class HelpCommand implements BotSpecialCommand{
 	
 	private boolean isDefaultHelpRequest(CommandLine line){
 		boolean result = true;
-
-		String[] args = line.getArgs();
-	
 		result = result & (line.getOptions().length == 0);
-		result = result & ((args.length == 1) && args[0].equals(getName()));
-
 		return result;
 	}
 	

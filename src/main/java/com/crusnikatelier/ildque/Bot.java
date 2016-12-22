@@ -4,6 +4,7 @@ package com.crusnikatelier.ildque;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sx.blah.discord.Discord4J;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.IListener;
@@ -22,8 +23,13 @@ public class Bot implements Runnable {
 			throw new IllegalArgumentException("No Token Specified");
 		}
 		
+		Discord4J.ignoreChannelWarnings.set(true);
+		
+		
 		builder.withToken(args[0]);
 		serviceClient = builder.build();
+		
+		
 		
 		IListener<MessageReceivedEvent> cmdHandler = new BotCommandTextHandler(this);
 		serviceClient.getDispatcher().registerListener(cmdHandler);
