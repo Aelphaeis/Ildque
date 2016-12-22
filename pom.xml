@@ -64,16 +64,16 @@
 			<version>2.6.1</version>
 		</dependency>
 		<dependency>
-        <groupId>JmoUtilities</groupId>
-        <artifactId>JmoUtilities</artifactId>
-        <version>2.1</version>
-        <exclusions>
-        	<exclusion>
-        		<groupId>org.slf4j</groupId>
-		 		<artifactId>slf4j-log4j12</artifactId>
-       		</exclusion>
-        </exclusions>
-    </dependency>
+	        <groupId>JmoUtilities</groupId>
+	        <artifactId>JmoUtilities</artifactId>
+	        <version>2.1</version>
+	        <exclusions>
+	        	<exclusion>
+	        		<groupId>org.slf4j</groupId>
+			 		<artifactId>slf4j-log4j12</artifactId>
+	       		</exclusion>
+	        </exclusions>
+    	</dependency>
 	</dependencies>
 
 	<distributionManagement>
@@ -95,15 +95,6 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
