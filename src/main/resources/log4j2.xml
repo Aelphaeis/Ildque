@@ -18,10 +18,11 @@
 	</Appenders>
 	<Loggers>
 		<Logger name="sx.blah.discord.api.internal.DiscordWS" level="info" />
-		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="info" additivity="false">
+		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="trace">
 			<AppenderRef ref="commandFile"/>
+			<AppenderRef ref="console"/>
 		</Logger>
-		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler$MsgLogger" level="trace"  additivity="true">
+		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler$MsgLogger" level="trace">
 			<AppenderRef ref="messageFile" />
 		</Logger>
 		<Root level="warn">
