@@ -8,13 +8,21 @@
 		<File name="commandFile" fileName="logs/commands.log">
 			 <PatternLayout pattern="[%-5p] %d : %m%n" />
 		</File>
+		<File name="messageFile" fileName="logs/messages.log">
+			 <PatternLayout pattern="%m%n" />
+		</File>
 		<File name="err" fileName="logs/errors.log">
-			 <PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
+			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
 		</File>
 	</Appenders>
 	<Loggers>
+		<Logger name="sx.blah.discord.api.internal.DiscordWS" level="info" />
 		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="info" additivity="false">
 			<AppenderRef ref="commandFile"/>
+		</Logger>
+		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler$MsgLogger" level="trace"  additivity="true">
+			<AppenderRef ref="messageFile" />
 		</Logger>
 		<Root level="warn">
 			<AppenderRef ref="err"/>

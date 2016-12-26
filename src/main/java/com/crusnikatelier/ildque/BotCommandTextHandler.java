@@ -2,6 +2,7 @@ package com.crusnikatelier.ildque;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.crusnikatelier.utilities.StringHelper;
 import jmo.util.Reflector;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.IMessage;
 
 public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	public static final String COMMAND_PACKAGE = "com.crusnikatelier.ildque.commands";
@@ -49,6 +51,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 
 	@Override
 	public void handle(MessageReceivedEvent event) {
+		MsgLogger.log(event);
 		String content = event.getMessage().getContent();
 
 		if (!content.startsWith(getPrefix())) {
@@ -118,5 +121,21 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 		String cmd = evt.getMessage().getContent();
 		String msg = String.format(COMMAND_LOG_FORMAT, uid, cmd);
 		logger.info(msg);
+	}
+	
+	private static class MsgLogger{
+		private final static Logger msgLogger = LoggerFactory.getLogger(MsgLogger.class);
+		//Date, channel id, user id, content
+		private final static String LOG_FORMAT = "[%s][%s][%s]: %s";
+		public static void log(MessageReceivedEvent event){
+			IMessage msg = event.getMessage();
+			LocalDateTime when = msg.getCreationDate();
+			String where = msg.getChannel().getID();
+			String who = msg.getAuthor().getID();
+			String what = msg.getContent();
+			
+			String log = String.format(LOG_FORMAT, when, where, who, what);
+			msgLogger.info(log);
+		}
 	}
 }
