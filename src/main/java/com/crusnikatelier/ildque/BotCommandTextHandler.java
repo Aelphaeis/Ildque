@@ -52,34 +52,46 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	@Override
 	public void handle(MessageReceivedEvent event) {
 		MsgLogger.log(event);
+
+		logger.trace("Retrieve content from message");
 		String content = event.getMessage().getContent();
 
+		logger.trace("Attempting to resolve prefix");
 		if (!content.startsWith(getPrefix())) {
+			logger.trace("Inappropriate prefix, disregarding message");
 			return;
 		}
 
+		logger.trace("Approppriate prefix found, parsing message");
 		String cmdText = content.substring(getPrefix().length());
 		String[] argv = StringHelper.translateCommandline(cmdText);
-
+		
+		logger.trace("Message parsed into {} arguments", argv.length);
 		if (argv.length < 1) {
+			logger.trace("Illegal number of arguments");
 			throw new IllegalStateException("argv must have at least one element");
 		}
+		
+		String [] args = Arrays.copyOfRange(argv, 1, argv.length);
 
+		logger.trace("Comparing against normal commands");
 		for (BotCommand command : commands) {
 			if (command.getName().equals(argv[0])) {
+				logger.trace("content matches command, calling command : {}", command.getName());
 				logCommandCall(event);
-				String [] args = Arrays.copyOfRange(argv, 1, argv.length);
 				command.execute(event, args);
 			}
 		}
 
 		for (BotSpecialCommand command : specialCommands) {
 			if (command.getName().equals(argv[0])) {
+				logger.trace("content matches command, calling command : {}", command.getName());
 				logCommandCall(event);
-				String [] args = Arrays.copyOfRange(argv, 1, argv.length);
 				command.execute(bot, this, event, args);
 			}
 		}
+		
+		logger.trace("Procesisng for message complete");
 	}
 	
 	public String getPrefix(){
@@ -123,7 +135,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 		logger.info(msg);
 	}
 	
-	private static class MsgLogger{
+	public static class MsgLogger{
 		private final static Logger msgLogger = LoggerFactory.getLogger(MsgLogger.class);
 		//Date, channel id, user id, content
 		private final static String LOG_FORMAT = "[%s][%s][%s]: %s";
