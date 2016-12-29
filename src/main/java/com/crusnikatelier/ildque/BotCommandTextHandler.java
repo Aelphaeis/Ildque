@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.ildque.configuration.BotConfiguration;
+import com.crusnikatelier.utilities.ReflectionHelper;
 import com.crusnikatelier.utilities.StringHelper;
 
-import jmo.util.Reflector;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
@@ -37,7 +37,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 		String pkgInfo = COMMAND_PACKAGE + "." + "TerminateCommand";
 		try {
 			Package pkg = Class.forName(pkgInfo).getPackage();
-			List<Class<?>> classes = Reflector.getClassesForPackage(pkg);
+			List<Class<?>> classes = ReflectionHelper.getClassesForPackage(pkg);
 
 			for (Class<?> clazz : classes) {
 				registerCommand(clazz);
