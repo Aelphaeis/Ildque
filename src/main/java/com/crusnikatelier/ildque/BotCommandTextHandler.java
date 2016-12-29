@@ -21,7 +21,7 @@ import sx.blah.discord.handle.obj.IMessage;
 public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	public static final String COMMAND_PACKAGE = "com.crusnikatelier.ildque.commands";
 	private static final Logger logger = LoggerFactory.getLogger(BotCommandTextHandler.class);
-	private static final String COMMAND_LOG_FORMAT = "User %s Executing Command : %s";
+	private static final String COMMAND_LOG_FORMAT = "Executing Command for User %s : %s";
 	List<BotCommand> commands;
 	List<BotSpecialCommand> specialCommands;
 	Bot bot;

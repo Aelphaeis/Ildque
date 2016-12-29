@@ -11,20 +11,31 @@
 		<File name="messageFile" fileName="logs/messages.log">
 			 <PatternLayout pattern="%m%n" />
 		</File>
+		<File name="linuxdebug" fileName="logs/linux.log">
+			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
+		</File>
 		<File name="err" fileName="logs/errors.log">
 			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
 			<PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
 		</File>
 	</Appenders>
 	<Loggers>
-		<Logger name="sx.blah.discord.api.internal.DiscordWS" level="info" />
-		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="trace">
-			<AppenderRef ref="commandFile"/>
+		<Logger name="com.crusnikatelier.ildque.driver.Program" level="trace">
+			<AppenderRef ref="linuxdebug"/>
 			<AppenderRef ref="console"/>
 		</Logger>
-		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler$MsgLogger" level="trace">
-			<AppenderRef ref="messageFile" />
+		
+		<Logger name="com.crusnikatelier.ildque.driver.Program" level="trace">
+			<AppenderRef ref="linuxdebug"/>
+			<AppenderRef ref="console"/>
 		</Logger>
+	
+		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="trace">
+			<AppenderRef ref="commandFile"/>
+		</Logger>
+		
+		<Logger name="sx.blah.discord.api.internal.DiscordWS" level="info" />
 		<Root level="warn">
 			<AppenderRef ref="err"/>
 		</Root>
