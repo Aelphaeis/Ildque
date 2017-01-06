@@ -4,6 +4,11 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -25,11 +30,17 @@ public final class DataAccessFactory {
 	private static final DataAccessFactory instance = new DataAccessFactory();
 	
 	public static final DataAccessFactory getInstance(){ return instance; }
-	
 	public static final String CHANGELOG_PATH = "changelog/changelog.xml";
+	
+	private SessionFactory sessionFactory;
+	
 	private DataAccessFactory(){
 		logger.debug("Initializing DataAccessFactory");
 		runLiquibase();
+	}
+	
+	public Session getSession(){
+		return sessionFactory.openSession();	
 	}
 	
 	
@@ -68,5 +79,34 @@ public final class DataAccessFactory {
 		SQLiteDataSource dSource = new SQLiteDataSource();
 		dSource.setUrl(Settings.DB_CONN_STRING.getValue().toString());
 		return dSource;
+	}
+	
+	SessionFactory createSessionFactory(){
+		StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+				.configure()
+				.build();
+		try{
+			logger.info("Creating sessionFactory");
+			long start = System.currentTimeMillis();
+			
+			MetadataSources sources = new MetadataSources(registry);
+			SessionFactory factory = sources
+					.buildMetadata()
+					.buildSessionFactory();
+			
+			long end = System.currentTimeMillis();
+			long duration = end - start;
+			String msg = "sessionFactory successful created in {} millseconds";
+			logger.info(msg, duration);
+			
+			return factory;
+		}
+		catch(Exception e){
+			String msg = "Unable to instantisate hibernate";
+			logger.error(msg, e);
+			StandardServiceRegistryBuilder.destroy(registry);
+			throw new IllegalStateException(msg);
+		}
+		
 	}
 }
