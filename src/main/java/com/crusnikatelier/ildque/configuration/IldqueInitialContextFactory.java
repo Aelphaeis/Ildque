@@ -1,5 +1,6 @@
 package com.crusnikatelier.ildque.configuration;
 
+import java.io.File;
 import java.util.Hashtable;
 
 import javax.naming.Context;
@@ -22,7 +23,14 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		
 		logger.trace("Populating initial context");
 		//Stub in some default configuration settings
-		init.bind(BotConfiguration.Settings.PREFIX.getValue().toString(), "Ildque ");
+		init.bind(BotConfiguration.Settings.PREFIX.getValue(), "Ildque ");
+		init.bind(BotConfiguration.Settings.DB_CONN_STRING.getValue(), getSqlite3DbConnectionString());
 		return init;
+	}
+	
+	public String getSqlite3DbConnectionString(){
+		String format = "jdbc:sqlite3:%s";
+		String path = new File("db/ildque.db").getAbsolutePath();
+		return String.format(format, path);
 	}
 }

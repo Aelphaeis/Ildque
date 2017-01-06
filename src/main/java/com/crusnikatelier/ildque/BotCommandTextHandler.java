@@ -95,7 +95,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	}
 	
 	public String getPrefix(){
-		return BotConfiguration.value(BotConfiguration.Settings.PREFIX);
+		return BotConfiguration.value(BotConfiguration.Settings.PREFIX).toString();
 	}
 
 	public List<BotCommand> getCommands() {

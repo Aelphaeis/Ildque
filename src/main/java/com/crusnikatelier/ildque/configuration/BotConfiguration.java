@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 public class BotConfiguration {
 	private static Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
 	
-	public static String value(Settings setting){
+	public static Object value(Settings setting){
 		try {
 			Context initialContext = new InitialContext();
-			return String.valueOf(initialContext.lookup(setting.getValue().toString()));
+			return initialContext.lookup(setting.getValue());
 		}
 		catch (NamingException e) {
 			String msg = "Unable to retrieve setting";
@@ -27,17 +27,17 @@ public class BotConfiguration {
 		DB_CONN_STRING("java:comp/env/ildque/configuration/connectionString"),
 		DB_DATASOURCE("java:comp/env/ildque/configuration/datasource");
 		
-		private Object value;
+		private String value;
 		
 		Settings(String value){
 			setValue(value);
 		}
 
-		public Object getValue() {
+		public String getValue() {
 			return value;
 		}
 
-		protected void setValue(Object value) {
+		protected void setValue(String value) {
 			this.value = value;
 		}
 	}

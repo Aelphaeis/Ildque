@@ -13,7 +13,7 @@ public class BotConfigurationTest {
 	private static final Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
 	@Test
 	public void prefixTest(){
-		String prefix = BotConfiguration.value(BotConfiguration.Settings.PREFIX);
+		String prefix = String.valueOf(BotConfiguration.value(BotConfiguration.Settings.PREFIX));
 		assertEquals("Ildque ", prefix);
 		logger.debug("test complete");
 	}
