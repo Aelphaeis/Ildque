@@ -23,14 +23,16 @@ public class User {
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	public String getDiscordId() {
 		return discordId;
 	}
+	
 	public void setDiscordId(String discordId) {
 		this.discordId = discordId;
 	}
-
 }
