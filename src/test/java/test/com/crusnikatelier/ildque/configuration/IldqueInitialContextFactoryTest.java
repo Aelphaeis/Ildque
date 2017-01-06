@@ -10,9 +10,8 @@ public class IldqueInitialContextFactoryTest {
 
 	@Test
 	public void test() {
-		
 		IldqueInitialContextFactory idcf = new IldqueInitialContextFactory();
-		System.out.println(idcf.getSqlite3DbConnectionString());
+		assertNotNull(idcf.getSqlite3DbConnectionString());
 	}
 
 }
