@@ -13,7 +13,7 @@ public class BotConfiguration {
 	public static String value(Settings setting){
 		try {
 			Context initialContext = new InitialContext();
-			return String.valueOf(initialContext.lookup(setting.getValue()));
+			return String.valueOf(initialContext.lookup(setting.getValue().toString()));
 		}
 		catch (NamingException e) {
 			String msg = "Unable to retrieve setting";
@@ -26,17 +26,17 @@ public class BotConfiguration {
 		PREFIX("java:comp/env/ildque/configuration/prefix"),
 		DB_CONN_STRING("java:comp/env/ildque/configuration/connectionString");		
 		
-		private String value;
+		private Object value;
 		
 		Settings(String value){
 			setValue(value);
 		}
 
-		public String getValue() {
+		public Object getValue() {
 			return value;
 		}
 
-		protected void setValue(String value) {
+		protected void setValue(Object value) {
 			this.value = value;
 		}
 	}
