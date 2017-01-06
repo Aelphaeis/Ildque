@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration SYSTEM  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">com.crusnikatelier.ildque.data.sqlite.SQLiteDialect</property>
+		<property name="hibernate.connection.datasource">java:comp/env/ildque/configuration/datasource</property>
+		<property name="connection.autocommit">true</property>
+		
+		<mapping class="com.crusnikatelier.ildque.data.entities.DNestNoticeSubscriber"/>
+		<mapping class="com.crusnikatelier.ildque.data.entities.DNestNoticeTracker"/>
+		<mapping class="com.crusnikatelier.ildque.data.entities.User"/>
+		
+	</session-factory>
+</hibernate-configuration>
