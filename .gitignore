@@ -1,6 +1,9 @@
 #logs
 logs/
 
+#data
+db/
+
 # Eclipse
 .classpath
 .project
