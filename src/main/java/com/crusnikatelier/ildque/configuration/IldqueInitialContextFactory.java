@@ -23,8 +23,8 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		
 		logger.trace("Populating initial context");
 		//Stub in some default configuration settings
-		init.bind(BotConfiguration.Settings.PREFIX.getValue(), "Ildque ");
-		init.bind(BotConfiguration.Settings.DB_CONN_STRING.getValue(), getSqlite3DbConnectionString());
+		init.bind(BotConfiguration.Settings.PREFIX.value(), "Ildque ");
+		init.bind(BotConfiguration.Settings.DB_CONN_STRING.value(), getSqlite3DbConnectionString());
 		return init;
 	}
 	
@@ -33,4 +33,6 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		String path = new File("db/ildque.db").getAbsolutePath();
 		return String.format(format, path);
 	}
+	
+	
 }

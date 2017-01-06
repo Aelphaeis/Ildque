@@ -77,7 +77,7 @@ public final class DataAccessFactory {
 		}
 		
 		SQLiteDataSource dSource = new SQLiteDataSource();
-		dSource.setUrl(Settings.DB_CONN_STRING.getValue().toString());
+		dSource.setUrl(Settings.DB_CONN_STRING.value().toString());
 		return dSource;
 	}
 	

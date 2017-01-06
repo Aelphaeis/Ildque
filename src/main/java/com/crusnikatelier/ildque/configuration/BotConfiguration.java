@@ -13,7 +13,7 @@ public class BotConfiguration {
 	public static Object value(Settings setting){
 		try {
 			Context initialContext = new InitialContext();
-			return initialContext.lookup(setting.getValue());
+			return initialContext.lookup(setting.value());
 		}
 		catch (NamingException e) {
 			String msg = "Unable to retrieve setting";
@@ -33,7 +33,7 @@ public class BotConfiguration {
 			setValue(value);
 		}
 
-		public String getValue() {
+		public String value() {
 			return value;
 		}
 
