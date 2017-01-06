@@ -21,8 +21,8 @@ public class DNestNoticeTracker {
 	@Column(name="notice_number")
 	private long noticeNumber;
 	
-	@Column(name="notification_date")
-	private Date NotificationDate;
+	@Column(name="notice_date")
+	private Date noticeDate;
 	
 	public long getId() {
 		return id;
@@ -39,13 +39,12 @@ public class DNestNoticeTracker {
 	public void setNoticeNumber(long noticeNumber) {
 		this.noticeNumber = noticeNumber;
 	}
-	
-	public Date getNotificationDate() {
-		return NotificationDate;
-	}
-	
-	public void setNotificationDate(Date notificationDate) {
-		NotificationDate = notificationDate;
+
+	public Date getNoticeDate() {
+		return noticeDate;
 	}
 
+	public void setNoticeDate(Date noticeDate) {
+		this.noticeDate = noticeDate;
+	}
 }
