@@ -24,7 +24,8 @@ public class BotConfiguration {
 	
 	public static enum Settings {
 		PREFIX("java:comp/env/ildque/configuration/prefix"),
-		DB_CONN_STRING("java:comp/env/ildque/configuration/connectionString");		
+		DB_CONN_STRING("java:comp/env/ildque/configuration/connectionString"),
+		DB_DATASOURCE("java:comp/env/ildque/configuration/datasource");
 		
 		private Object value;
 		
