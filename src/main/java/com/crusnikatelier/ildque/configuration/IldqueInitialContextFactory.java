@@ -23,8 +23,8 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		
 		logger.trace("Populating initial context");
 		//Stub in some default configuration settings
-		init.bind(BotConfiguration.Settings.PREFIX.value(), "Ildque ");
-		init.bind(BotConfiguration.Settings.DB_CONN_STRING.value(), getSqlite3DbConnectionString());
+		init.bind(Settings.PREFIX.getName(), "Ildque ");
+		init.bind(Settings.DB_CONN_STRING.getName(), getSqlite3DbConnectionString());
 		return init;
 	}
 	

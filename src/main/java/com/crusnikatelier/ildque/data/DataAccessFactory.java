@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 
-import com.crusnikatelier.ildque.configuration.BotConfiguration.Settings;
+import com.crusnikatelier.ildque.configuration.Settings;
 
 import liquibase.Contexts;
 import liquibase.LabelExpression;
@@ -77,7 +77,7 @@ public final class DataAccessFactory {
 		}
 		
 		SQLiteDataSource dSource = new SQLiteDataSource();
-		dSource.setUrl(Settings.DB_CONN_STRING.value().toString());
+		dSource.setUrl(String.valueOf(Settings.DB_CONN_STRING.value()));
 		return dSource;
 	}
 	

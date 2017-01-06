@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.ildque.Bot;
-import com.crusnikatelier.ildque.configuration.BotConfiguration;
+import com.crusnikatelier.ildque.configuration.Settings;
 
 public class Program {
 	private static final Logger logger = LoggerFactory.getLogger(Program.class);
@@ -14,6 +14,6 @@ public class Program {
 		new Bot(args).run();
 		long duration  = System.currentTimeMillis() - start;
 		String msg = "Bot successfully started in {} millseconds with prefix '{}'";
-		logger.info(msg, duration, BotConfiguration.value(BotConfiguration.Settings.PREFIX));
+		logger.info(msg, duration, Settings.PREFIX.value());
 	}
 }
