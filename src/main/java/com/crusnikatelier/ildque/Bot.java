@@ -1,8 +1,9 @@
 package com.crusnikatelier.ildque;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.crusnikatelier.ildque.data.DataAccessFactory;
 
 import sx.blah.discord.Discord4J;
 import sx.blah.discord.api.ClientBuilder;
@@ -17,6 +18,9 @@ public class Bot implements Runnable {
 	private IDiscordClient serviceClient;
 	
 	public Bot(String []  args) throws DiscordException{
+		//Init database
+		DataAccessFactory.getInstance();
+		
 		ClientBuilder builder = new ClientBuilder();
 		
 		if(args.length < 1){
