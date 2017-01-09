@@ -60,7 +60,7 @@ public final class DataAccessFactory {
 		switch(type){
 			case SQLITE:
 				if(clazz.isAssignableFrom(UserDAO.class)){
-					UserDAO dao = new UserDAOImpl();
+					UserDAO dao = new UserDAOImpl(session);
 					return (T) dao;
 				}
 				if(clazz.isAssignableFrom(DNestNoticeSubscriberDAO.class)){
@@ -142,7 +142,7 @@ public final class DataAccessFactory {
 			String msg = "Unable to instantisate hibernate";
 			logger.error(msg, e);
 			StandardServiceRegistryBuilder.destroy(registry);
-			throw new IllegalStateException(msg);
+			throw new IllegalStateException(msg, e);
 		}
 		
 	}
