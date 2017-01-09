@@ -23,6 +23,7 @@ public class UserDAOImpl extends SqliteDAOBase<User> implements UserDAO {
 	public User find(long id) {
 		String q = "select u from users u  where u.id = :id";
 		Query<User> query = getSession().createQuery(q, User.class);
+		query.setParameter("id", id);
 		return query.getSingleResult();
 	}
 
@@ -32,6 +33,5 @@ public class UserDAOImpl extends SqliteDAOBase<User> implements UserDAO {
 		Query<User> query =  getSession().createQuery(q, User.class);
 		return query.getResultList();
 	}
-
 
 }
