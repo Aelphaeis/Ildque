@@ -60,7 +60,7 @@ public final class DataAccessFactory {
 			String msg = "Unable to run Liquibase";
 			logger.error(msg, e);
 			//Application should not be run if this fails
-			throw new IllegalStateException(msg);
+			throw new IllegalStateException(msg, e);
 		}
 		long end = System.currentTimeMillis();
 		long duration = end - start;
