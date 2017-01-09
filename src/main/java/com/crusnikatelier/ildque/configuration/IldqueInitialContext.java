@@ -133,7 +133,14 @@ public class IldqueInitialContext implements Context{
 
 	@Override
 	public NameParser getNameParser(String name) throws NamingException {
-		throw new UnsupportedOperationException("Operation not implemented yet.");
+		return new NameParser() {
+			@Override
+			public Name parse(String nom) throws NamingException {
+				DefaultName n = new DefaultName();
+				n.setValue(nom);
+				return n;
+			}
+		};
 	}
 
 	@Override
