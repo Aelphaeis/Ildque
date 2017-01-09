@@ -2,7 +2,9 @@ package com.crusnikatelier.ildque.data.sqlite;
 
 import org.hibernate.Session;
 
-public class SqliteDAOBase {
+import com.crusnikatelier.ildque.data.DataAccessObject;
+
+public abstract class SqliteDAOBase<T> implements DataAccessObject<T>{
 	Session session;
 	
 	public SqliteDAOBase() {
@@ -20,6 +22,21 @@ public class SqliteDAOBase {
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+	
+	@Override
+	public void persist(T entity) {
+		getSession().save(entity);
+	}
+
+	@Override
+	public void update(T entity) {
+		getSession().saveOrUpdate(entity);
+	}
+
+	@Override
+	public void delete(T entity) {
+		getSession().delete(entity);
 	}
 
 }

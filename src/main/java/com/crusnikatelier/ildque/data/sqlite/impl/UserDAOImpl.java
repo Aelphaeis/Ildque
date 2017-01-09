@@ -9,7 +9,7 @@ import com.crusnikatelier.ildque.data.daos.UserDAO;
 import com.crusnikatelier.ildque.data.entities.User;
 import com.crusnikatelier.ildque.data.sqlite.SqliteDAOBase;
 
-public class UserDAOImpl extends SqliteDAOBase implements UserDAO {
+public class UserDAOImpl extends SqliteDAOBase<User> implements UserDAO {
 	
 	public UserDAOImpl() {
 		super();
@@ -33,18 +33,5 @@ public class UserDAOImpl extends SqliteDAOBase implements UserDAO {
 		return query.getResultList();
 	}
 
-	@Override
-	public void persist(User entity) {
-		getSession().save(entity);
-	}
 
-	@Override
-	public void update(User entity) {
-		getSession().saveOrUpdate(entity);
-	}
-
-	@Override
-	public void delete(User entity) {
-		getSession().delete(entity);
-	}
 }
