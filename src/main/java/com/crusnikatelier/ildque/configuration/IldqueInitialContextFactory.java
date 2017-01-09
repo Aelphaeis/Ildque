@@ -25,14 +25,18 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		//Stub in some default configuration settings
 		init.bind(Settings.PREFIX.getName(), "Ildque ");
 		init.bind(Settings.DB_CONN_STRING.getName(), getSqlite3DbConnectionString());
+		init.bind(Settings.DB_DATASOURCE.getName(), null);
+		
 		return init;
 	}
 	
 	public String getSqlite3DbConnectionString(){
-		String format = "jdbc:sqlite3:%s";
-		String path = new File("db/ildque.db").getAbsolutePath();
+		String format = "jdbc:sqlite:%s";
+		File db = new File("db/ildque.db");
+		String path = db.getAbsolutePath();
+		File parent = db.getParentFile();
+		parent.mkdirs();
+		
 		return String.format(format, path);
 	}
-	
-	
 }
