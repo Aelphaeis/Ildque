@@ -34,4 +34,10 @@ public class UserDAOImpl extends SqliteDAOBase<User> implements UserDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public User findByDiscordId(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
