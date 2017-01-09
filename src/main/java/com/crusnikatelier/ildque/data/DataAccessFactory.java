@@ -43,14 +43,20 @@ public final class DataAccessFactory {
 	private DataAccessFactory(){
 		logger.debug("Initializing DataAccessFactory");
 		runLiquibase();
+		
+		sessionFactory = createSessionFactory();
 	}
 	
 	public Session getSession(){
 		return sessionFactory.openSession();	
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T extends DataAccessObject<?>> T getDAO(Class<T> clazz, DatabaseType type){
+		return getDAO(clazz, type, getSession());
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public <T extends DataAccessObject<?>> T getDAO(Class<T> clazz, DatabaseType type, Session session){
 		switch(type){
 			case SQLITE:
 				if(clazz.isAssignableFrom(UserDAO.class)){
