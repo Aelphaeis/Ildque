@@ -14,6 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
 
 import com.crusnikatelier.ildque.configuration.Settings;
+import com.crusnikatelier.ildque.data.daos.DNestNoticeSubscriberDAO;
+import com.crusnikatelier.ildque.data.daos.DNestNoticeTrackerDAO;
+import com.crusnikatelier.ildque.data.daos.UserDAO;
+import com.crusnikatelier.ildque.data.sqlite.impl.DNestNoticeSubscriberDAOImpl;
+import com.crusnikatelier.ildque.data.sqlite.impl.DNestNoticeTrackerDAOImpl;
+import com.crusnikatelier.ildque.data.sqlite.impl.UserDAOImpl;
 
 import liquibase.Contexts;
 import liquibase.LabelExpression;
@@ -41,6 +47,31 @@ public final class DataAccessFactory {
 	
 	public Session getSession(){
 		return sessionFactory.openSession();	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends DataAccessObject<?>> T getDAO(Class<T> clazz, DatabaseType type){
+		switch(type){
+			case SQLITE:
+				if(clazz.isAssignableFrom(UserDAO.class)){
+					UserDAO dao = new UserDAOImpl();
+					return (T) dao;
+				}
+				if(clazz.isAssignableFrom(DNestNoticeSubscriberDAO.class)){
+					DNestNoticeSubscriberDAO dao = new DNestNoticeSubscriberDAOImpl();
+					return (T) dao;
+				}
+				if(clazz.isAssignableFrom(DNestNoticeTrackerDAO.class)){
+					DNestNoticeTrackerDAO dao = new DNestNoticeTrackerDAOImpl();
+					return (T) dao;
+				}
+				break;
+			default : 
+				String msg = "Invalid DatabaseType specified";
+				throw new IllegalArgumentException(msg);
+		}
+		String msg = "Unable to find specified DAO";
+		throw new IllegalArgumentException(msg);
 	}
 	
 	
