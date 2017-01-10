@@ -26,13 +26,8 @@ public class DNestNoticeSubscriber extends EntityBase implements Serializable {
 	@TableGenerator(name="sqlite", table="sqlite_sequence", pkColumnName="name", valueColumnName="seq", pkColumnValue="sqliteTestTable")
 	private long id;
 	
-	/*
-	@Column(name="subscriber", nullable=false, unique=true)
-	private long subscriber;
-	*/
-	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="subscriber", referencedColumnName="discord_id")
+	@JoinColumn(name="subscriber", referencedColumnName="id", unique=true, insertable=false, nullable=false, updatable=false)
 	private User subscriber;
 	
 
