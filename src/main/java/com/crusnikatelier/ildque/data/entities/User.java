@@ -6,14 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.crusnikatelier.ildque.data.EntityBase;
 
-@Entity
-@Table(name="users")
+@Entity(name="users")
 @XmlRootElement
 public class User extends EntityBase implements Serializable{
 	
