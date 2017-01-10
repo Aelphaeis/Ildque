@@ -1,7 +1,5 @@
 package com.crusnikatelier.ildque.data;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -11,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.jdbc.ReturningWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -42,14 +39,14 @@ public final class DataAccessFactory {
 	public static final String CHANGELOG_PATH = "changelog/changelog.xml";
 	
 	private SessionFactory sessionFactory;
+	private SessionFactory override;
 	
 	private DataAccessFactory(){
-		reinit();
+		init();
 	}
 	
-
 	public Session getSession(){
-		return sessionFactory.openSession();	
+		return override == null? sessionFactory.openSession() : override.openSession();	
 	}
 	
 	public <T extends DataAccessObject<?>> T getDAO(Class<T> clazz, DatabaseType type){
@@ -119,10 +116,14 @@ public final class DataAccessFactory {
 		return dSource;
 	}
 	
+
+	
 	SessionFactory createSessionFactory(){
 		StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 				.configure()
 				.build();
+		
+		
 		try{
 			logger.info("Creating sessionFactory");
 			long start = System.currentTimeMillis();
@@ -131,6 +132,7 @@ public final class DataAccessFactory {
 			SessionFactory factory = sources
 					.buildMetadata()
 					.buildSessionFactory();
+			
 			
 			
 			long end = System.currentTimeMillis();
@@ -148,27 +150,27 @@ public final class DataAccessFactory {
 		}
 	}
 	
-	public void reinit(){
-		if(sessionFactory!= null){
-			sessionFactory.close();
-		}
+	public void init(){
 		logger.debug("Initializing DataAccessFactory");
 		runLiquibase();
 		
 		sessionFactory = createSessionFactory();
 	}
 	
-	public String getConnectionUrl(){
-		try(Session session = getSession()){
-			ReturningWork<String> getConnectionUrlStrategy = new ReturningWork<String>() {
-
-				@Override
-				public String execute(Connection connection) throws SQLException {
-					DatabaseMetaData meta = connection.getMetaData();
-					return meta.getURL();
-				}
-			};
-			return session.doReturningWork(getConnectionUrlStrategy);
-		}
+	/**
+	 * This is a very dangerous method, do not use this if you don't understand
+	 * what you are doing. 
+	 * 
+	 * Use this method to override the applications session factory.
+	 * This will change how the entire application gets its Data Access Objects
+	 * @param sessionFactory
+	 */
+	public void overrideSessionFactory(SessionFactory sessionFactory) {
+		this.override = sessionFactory;
 	}
+	
+	public void removeOverride(){
+		this.override = null;
+	}
+	
 }
