@@ -49,6 +49,12 @@ public final class DataAccessFactory {
 		return override == null? sessionFactory.openSession() : override.openSession();	
 	}
 	
+	public Session getReadonlySession(){
+		Session session = getSession();
+		session.setDefaultReadOnly(true);
+		return session;
+	}
+	
 	public <T extends DataAccessObject<?>> T getDAO(Class<T> clazz, DatabaseType type){
 		return getDAO(clazz, type, getSession());
 	}	
