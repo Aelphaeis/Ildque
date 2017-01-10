@@ -15,6 +15,7 @@ import com.crusnikatelier.ildque.data.DataAccessFactory;
 import com.crusnikatelier.ildque.data.DatabaseType;
 import com.crusnikatelier.ildque.data.daos.DNestNoticeSubscriberDAO;
 import com.crusnikatelier.ildque.data.daos.UserDAO;
+import com.crusnikatelier.ildque.data.entities.DNestNoticeSubscriber;
 
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
@@ -81,30 +82,48 @@ public class DNestNoticeCommand implements BotCommand{
 	}
 	
 	String handleSubscribe(IUser user){
-		return null;
+		DataAccessFactory factory = DataAccessFactory.getInstance();
+		DNestNoticeSubscriberDAO subscribers = null;
+		String response = null;
+		
+		try (Session session = factory.getSession()){
+			//We will need these DAOS
+			subscribers = factory.getDAO(DNestNoticeSubscriberDAO.class, DatabaseType.SQLITE, session);
+		}
+		return response;
 	}
 	
 	String handleUnsubscribe(IUser user){
-		return null;
+		DataAccessFactory factory = DataAccessFactory.getInstance();
+		DNestNoticeSubscriberDAO subscribers = null;
+		
+		try (Session session = factory.getSession()){
+			//We will need these DAOS
+			subscribers = factory.getDAO(DNestNoticeSubscriberDAO.class, DatabaseType.SQLITE, session);
+			DNestNoticeSubscriber sub = subscribers.findByUserDiscordId(user.getID());
+			if(sub != null){
+				subscribers.delete(sub);
+				String format = "%s : Your subscription has been successfully removed";
+				return String.format(format, user.mention());
+			}
+			else{
+				String format = "%s : You are not subscribed";
+				return String.format(format, user.mention());
+			}	
+		}
 	}
 	
 	String handleCheck(IUser user){
 		DataAccessFactory factory = DataAccessFactory.getInstance();
+		DNestNoticeSubscriberDAO subscribers = null;
 		
 		try (Session session = factory.getSession()){
 			//We will need these DAOS
-			UserDAO users = factory.getDAO(UserDAO.class, DatabaseType.SQLITE, session);
-			DNestNoticeSubscriberDAO subscribers = factory.getDAO(DNestNoticeSubscriberDAO.class, DatabaseType.SQLITE, session);
-
-			long uid = users.findByDiscordId(user.getID()).getId();
+			subscribers = factory.getDAO(DNestNoticeSubscriberDAO.class, DatabaseType.SQLITE, session);
+			DNestNoticeSubscriber sub = subscribers.findByUserDiscordId(user.getID());
 			
+			String format = "%s : You are%ssubscribed";
+			return String.format(format, user.mention(), sub == null ? " not " : " ");
 		}
-		catch(Exception e){
-			
-		}
-		
-		
-		
-		return null;
 	}
 }
