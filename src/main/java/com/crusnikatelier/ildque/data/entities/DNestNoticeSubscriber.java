@@ -7,9 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.crusnikatelier.ildque.data.EntityBase;
+
 @Entity
 @Table(name="dnestnotice_subscribers")
-public class DNestNoticeSubscriber {
+public class DNestNoticeSubscriber extends EntityBase {
 
 	@Id
 	@Column(name="id")

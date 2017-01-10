@@ -7,9 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.crusnikatelier.ildque.data.EntityBase;
+
 @Entity
 @Table(name="users")
-public class User {
+public class User extends EntityBase{
 	
 	@Id
 	@Column(name="id")

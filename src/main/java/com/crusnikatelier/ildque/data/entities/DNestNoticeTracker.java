@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.crusnikatelier.ildque.data.EntityBase;
+
 @Entity
 @Table(name="dnestnotice_tracker")
-public class DNestNoticeTracker {
+public class DNestNoticeTracker extends EntityBase {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(generator="sqlite")

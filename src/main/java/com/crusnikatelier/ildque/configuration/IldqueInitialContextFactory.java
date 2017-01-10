@@ -28,6 +28,7 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		init.bind(Settings.PREFIX.getName(), "Ildque ");
 		init.bind(Settings.DB_CONN_STRING.getName(), getSqlite3DbConnectionString());
 		init.bind(Settings.DB_DATASOURCE.getName(), createSqlite3DbDatasource());
+		
 		return init;
 	}
 	
