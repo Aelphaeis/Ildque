@@ -64,11 +64,11 @@ public final class DataAccessFactory {
 					return (T) dao;
 				}
 				if(clazz.isAssignableFrom(DNestNoticeSubscriberDAO.class)){
-					DNestNoticeSubscriberDAO dao = new DNestNoticeSubscriberDAOImpl();
+					DNestNoticeSubscriberDAO dao = new DNestNoticeSubscriberDAOImpl(session);
 					return (T) dao;
 				}
 				if(clazz.isAssignableFrom(DNestNoticeTrackerDAO.class)){
-					DNestNoticeTrackerDAO dao = new DNestNoticeTrackerDAOImpl();
+					DNestNoticeTrackerDAO dao = new DNestNoticeTrackerDAOImpl(session);
 					return (T) dao;
 				}
 				break;
