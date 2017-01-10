@@ -23,7 +23,7 @@ public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubsc
 	
 	@Override
 	public DNestNoticeSubscriber find(long id) {
-		String q = "select d from DNestNoticeSubscriber where d.id = :id";
+		String q = "select d from dnestnotice_subscribers where d.id = :id";
 		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
 		query.setParameter("id", id);
 		return query.getSingleResult();
@@ -31,7 +31,7 @@ public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubsc
 
 	@Override
 	public List<DNestNoticeSubscriber> findAll() {
-		String q = "select d from DNestNoticeSubscriber d";
+		String q = "select d from dnestnotice_subscribers d";
 		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
 		return query.getResultList();
 	}
@@ -39,7 +39,7 @@ public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubsc
 	@Override
 	public DNestNoticeSubscriber findByUserDiscordId(String id) {
 		try{
-			String q = "select d from DNestNoticeSubscriber d where d.subscriber.discordId = :id";
+			String q = "select d from dnestnotice_subscribers d where d.subscriber.discordId = :id";
 			Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
 			query.setParameter("id", id);
 			return query.getSingleResult();
