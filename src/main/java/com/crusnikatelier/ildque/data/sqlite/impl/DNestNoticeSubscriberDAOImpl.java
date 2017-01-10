@@ -29,8 +29,16 @@ public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubsc
 
 	@Override
 	public List<DNestNoticeSubscriber> findAll() {
-		String q = "select d from dnestnotice_subscribers";
+		String q = "select d from dnestnotice_subscribers d";
 		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
 		return query.getResultList();
+	}
+
+	@Override
+	public DNestNoticeSubscriber findByUserDiscordId(String id) {
+		String q = "select d from dnestnotice_subscribers d where d.subscriber.discord_id = :id";
+		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
+		query.setParameter("id", id);
+		return query.getSingleResult();
 	}
 }
