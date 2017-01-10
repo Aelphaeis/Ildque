@@ -2,6 +2,8 @@ package com.crusnikatelier.ildque.data.sqlite.impl;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -10,7 +12,7 @@ import com.crusnikatelier.ildque.data.entities.DNestNoticeSubscriber;
 import com.crusnikatelier.ildque.data.sqlite.SqliteDAOBase;
 
 public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubscriber> implements DNestNoticeSubscriberDAO{
-	
+
 	public DNestNoticeSubscriberDAOImpl() {
 		super();
 	}
@@ -21,7 +23,7 @@ public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubsc
 	
 	@Override
 	public DNestNoticeSubscriber find(long id) {
-		String q = "select d from dnestnotice_subscribers where d.id = :id";
+		String q = "select d from DNestNoticeSubscriber where d.id = :id";
 		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
 		query.setParameter("id", id);
 		return query.getSingleResult();
@@ -29,16 +31,21 @@ public class DNestNoticeSubscriberDAOImpl extends SqliteDAOBase<DNestNoticeSubsc
 
 	@Override
 	public List<DNestNoticeSubscriber> findAll() {
-		String q = "select d from dnestnotice_subscribers d";
+		String q = "select d from DNestNoticeSubscriber d";
 		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public DNestNoticeSubscriber findByUserDiscordId(String id) {
-		String q = "select d from dnestnotice_subscribers d where d.subscriber.discord_id = :id";
-		Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
-		query.setParameter("id", id);
-		return query.getSingleResult();
+		try{
+			String q = "select d from DNestNoticeSubscriber d where d.subscriber.discordId = :id";
+			Query<DNestNoticeSubscriber> query = getSession().createQuery(q, DNestNoticeSubscriber.class);
+			query.setParameter("id", id);
+			return query.getSingleResult();
+		}
+		catch(NoResultException e){
+			return null;
+		}
 	}
 }
