@@ -56,7 +56,7 @@ public final class DataAccessFactory {
 	}
 	
 	public <T extends DataAccessObject<?>> T getDAO(Class<T> clazz, DatabaseType type){
-		return getDAO(clazz, type, getSession());
+		return getDAO(clazz, type, getReadonlySession());
 	}	
 	
 	@SuppressWarnings("unchecked")
