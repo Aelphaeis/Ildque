@@ -6,10 +6,15 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.ildque.BotCommand;
+import com.crusnikatelier.ildque.data.DataAccessFactory;
+import com.crusnikatelier.ildque.data.DatabaseType;
+import com.crusnikatelier.ildque.data.daos.DNestNoticeSubscriberDAO;
+import com.crusnikatelier.ildque.data.daos.UserDAO;
 
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
@@ -84,6 +89,22 @@ public class DNestNoticeCommand implements BotCommand{
 	}
 	
 	String handleCheck(IUser user){
+		DataAccessFactory factory = DataAccessFactory.getInstance();
+		
+		try (Session session = factory.getSession()){
+			//We will need these DAOS
+			UserDAO users = factory.getDAO(UserDAO.class, DatabaseType.SQLITE, session);
+			DNestNoticeSubscriberDAO subscribers = factory.getDAO(DNestNoticeSubscriberDAO.class, DatabaseType.SQLITE, session);
+
+			long uid = users.findByDiscordId(user.getID()).getId();
+			
+		}
+		catch(Exception e){
+			
+		}
+		
+		
+		
 		return null;
 	}
 }
