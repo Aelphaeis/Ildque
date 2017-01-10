@@ -1,5 +1,6 @@
 package com.crusnikatelier.ildque.data.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,12 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.crusnikatelier.ildque.data.EntityBase;
 
 @Entity
 @Table(name="dnestnotice_tracker")
-public class DNestNoticeTracker extends EntityBase {
+@XmlRootElement
+public class DNestNoticeTracker extends EntityBase implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="id")
 	@GeneratedValue(generator="sqlite")
