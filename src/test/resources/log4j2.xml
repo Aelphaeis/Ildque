@@ -7,6 +7,12 @@
 		</Console>
 	</Appenders>
 	<Loggers>
+		<!--  Set to debug to see SQL statements executed -->
+		<Logger name="org.hibernate.SQL" level="warn"/>
+		<!--  Set to trace to see variables binded to SQL statements -->
+		<Logger name="org.hibernate.type" level="warn"/>
+		<!-- This prevents us from seeing Registry info when looking at type bindings -->
+		<Logger name="org.hibernate.type.BasicTypeRegistry" level="warn"/>
 		<Root level="warn">
 			<AppenderRef ref="Console" />
 		</Root>
