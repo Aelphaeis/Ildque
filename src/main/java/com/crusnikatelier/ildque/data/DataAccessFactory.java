@@ -1,5 +1,7 @@
 package com.crusnikatelier.ildque.data;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -9,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.jdbc.ReturningWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteDataSource;
@@ -41,12 +44,10 @@ public final class DataAccessFactory {
 	private SessionFactory sessionFactory;
 	
 	private DataAccessFactory(){
-		logger.debug("Initializing DataAccessFactory");
-		runLiquibase();
-		
-		sessionFactory = createSessionFactory();
+		reinit();
 	}
 	
+
 	public Session getSession(){
 		return sessionFactory.openSession();	
 	}
@@ -131,6 +132,7 @@ public final class DataAccessFactory {
 					.buildMetadata()
 					.buildSessionFactory();
 			
+			
 			long end = System.currentTimeMillis();
 			long duration = end - start;
 			String msg = "sessionFactory successful created in {} millseconds";
@@ -144,6 +146,29 @@ public final class DataAccessFactory {
 			StandardServiceRegistryBuilder.destroy(registry);
 			throw new IllegalStateException(msg, e);
 		}
+	}
+	
+	public void reinit(){
+		if(sessionFactory!= null){
+			sessionFactory.close();
+		}
+		logger.debug("Initializing DataAccessFactory");
+		runLiquibase();
 		
+		sessionFactory = createSessionFactory();
+	}
+	
+	public String getConnectionUrl(){
+		try(Session session = getSession()){
+			ReturningWork<String> getConnectionUrlStrategy = new ReturningWork<String>() {
+
+				@Override
+				public String execute(Connection connection) throws SQLException {
+					DatabaseMetaData meta = connection.getMetaData();
+					return meta.getURL();
+				}
+			};
+			return session.doReturningWork(getConnectionUrlStrategy);
+		}
 	}
 }
