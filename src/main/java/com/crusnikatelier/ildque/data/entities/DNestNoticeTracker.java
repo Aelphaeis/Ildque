@@ -7,14 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.crusnikatelier.ildque.data.EntityBase;
 
-@Entity
-@Table(name="dnestnotice_tracker")
+@Entity(name="dnestnotice_tracker")
 @XmlRootElement
 public class DNestNoticeTracker extends EntityBase implements Serializable{
 	
