@@ -35,9 +35,11 @@ public class UserDAOImpl extends SqliteDAOBase<User> implements UserDAO {
 	}
 
 	@Override
-	public User findByDiscordId(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User findByDiscordId(String discordId) {
+		String q = "select u from users u  where u.discordId = :id";
+		Query<User> query = getSession().createQuery(q, User.class);
+		query.setParameter("id", discordId);
+		return query.getSingleResult();
 	}
 
 }
