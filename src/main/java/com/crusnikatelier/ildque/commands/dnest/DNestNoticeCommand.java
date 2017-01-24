@@ -141,6 +141,7 @@ public class DNestNoticeCommand implements BotCommand{
 				subscription = new DNestNoticeSubscriber();
 				subscription.setSubscriber(botUser);
 				
+				users.persist(botUser);
 				subscribers.persist(subscription);
 				String format = "%s : You are now subscribed";
 				response = String.format(format, user.mention());
