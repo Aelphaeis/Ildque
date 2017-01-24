@@ -7,6 +7,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,6 +126,7 @@ public class DNestNoticeCommand implements BotCommand{
 		String response = null;
 		
 		try (Session session = factory.getSession()){
+			Transaction transaction = session.beginTransaction();
 			//We will need these DAOS
 			subscribers = factory.getDAO(DNestNoticeSubscriberDAO.class, DatabaseType.SQLITE, session);
 			users = factory.getDAO(UserDAO.class, DatabaseType.SQLITE, session);
@@ -162,7 +164,7 @@ public class DNestNoticeCommand implements BotCommand{
 					response = String.format(format, user.mention());
 				}
 			}
-			
+			transaction.commit();
 		}
 		return response;
 	}
