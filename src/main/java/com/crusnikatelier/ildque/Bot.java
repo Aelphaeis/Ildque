@@ -10,6 +10,7 @@ import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.RateLimitException;
 
 public class Bot implements Runnable {
 
@@ -43,7 +44,7 @@ public class Bot implements Runnable {
 		try {
 			serviceClient.login();
 		} 
-		catch (DiscordException e) {
+		catch (DiscordException | RateLimitException e) {
 			logger.error("Unable to login", e);
 		}
 	}

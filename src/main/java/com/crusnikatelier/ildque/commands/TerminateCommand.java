@@ -9,7 +9,6 @@ import com.crusnikatelier.ildque.BotCommand;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.RateLimitException;
 
 public class TerminateCommand implements BotCommand {
 
@@ -35,7 +34,7 @@ public class TerminateCommand implements BotCommand {
 			
 			logger.info("successfully logged out of discord");
 		} 
-		catch (RateLimitException | DiscordException e) {
+		catch (DiscordException e) {
 			logger.error("Unable to terminate bot", e);
 		}
 		logger.info("Terminating self");

@@ -23,9 +23,13 @@
 		<Logger name="com.crusnikatelier.ildque.BotCommandTextHandler" level="info">
 			<AppenderRef ref="commandFile"/>
 		</Logger>
+		<Logger name="com.crusnikatelier.ildque.commands.dnest.DNestNoticeCommand" level="trace">
+			<AppenderRef ref="console" />		
+		</Logger>
 		<Logger name="sx.blah.discord.api.internal.DiscordWS" level="info" />
 		<Root level="warn">
 			<AppenderRef ref="err"/>
+			<AppenderRef ref="console"/>
 		</Root>
 	</Loggers>
 </Configuration>
