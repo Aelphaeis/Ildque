@@ -47,7 +47,8 @@ public class LinkCommand implements BotCommand {
 			IChannel chan = mrEvt.getMessage().getChannel();
 			chan.sendMessage(buffer.toString());
 			
-		} catch (DiscordException | MissingPermissionsException | RateLimitException e) {
+		}
+		catch (DiscordException | MissingPermissionsException | RateLimitException e) {
 			String msg = "Unable to send authorization link";
 			logger.error(msg, e);
 		}
