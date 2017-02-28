@@ -47,14 +47,6 @@ public class UsersCommand implements BotCommand {
 
 	@Override
 	public void execute(Event event, String[] argv) {
-		//Just check to make sure that a cast won't fail
-		if(!(event instanceof MessageReceivedEvent)){
-			String err = "Unable to process command because event is not of type %s";
-			err = String.format(err, MessageReceivedEvent.class.getName());
-			logger.error(err);
-			return;
-		}
-		
 		//Get all users who can read channel
 		MessageReceivedEvent msgEvent = (MessageReceivedEvent)event;
 		IMessage msg = msgEvent.getMessage();
