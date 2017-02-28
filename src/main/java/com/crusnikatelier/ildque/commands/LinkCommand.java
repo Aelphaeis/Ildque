@@ -22,7 +22,7 @@ public class LinkCommand implements BotCommand {
 	
 	public LinkCommand() {
 		options = new Options();
-		options.addOption("", true, "Show Authorization Link for bot");
+		options.addOption("", "Show Authorization Link for bot");
 	}
 	
 	@Override
