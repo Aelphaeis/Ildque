@@ -13,9 +13,10 @@ public class JoinCommand implements BotCommand {
 	public JoinCommand(){
 		options = new Options();
 	}
+	
 	@Override
 	public String getName() {
-		return "Join";
+		return "join";
 	}
 
 	@Override
