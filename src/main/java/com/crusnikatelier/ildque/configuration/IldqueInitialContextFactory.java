@@ -22,7 +22,7 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		
 		logger.trace("Populating initial context");
 		//Stub in some default configuration settings
-		init.bind(BotConfiguration.Settings.PREFIX.getValue(), "Ildque ");
+		init.bind(BotConfiguration.Settings.PREFIX.getValue(), "il ");
 		return init;
 	}
 }
