@@ -26,6 +26,7 @@ import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.audio.AudioPlayer;
 
 public class PlayCommand implements BotCommand{
 	private static final Logger logger = LoggerFactory.getLogger(PlayCommand.class);
@@ -50,7 +51,6 @@ public class PlayCommand implements BotCommand{
 	public void execute(Event event, String[] argv) {
 		MessageReceivedEvent evt = (MessageReceivedEvent)event;
 		String content = evt.getMessage().getContent();
-		
 		VideoInfo info = resolveVideoInfo(argv);
 		
 		// TODO Auto-generated method stub
@@ -109,6 +109,7 @@ public class PlayCommand implements BotCommand{
 			
 			try{
 				IVoiceChannel c = moveBotToUser();
+				AudioPlayer ap = new AudioPlayer(c.getGuild());
 				//LF audio support!
 			}
 			catch(MissingPermissionsException e){ 
