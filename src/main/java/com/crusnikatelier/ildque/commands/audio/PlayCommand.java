@@ -1,10 +1,15 @@
 package com.crusnikatelier.ildque.commands.audio;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -18,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.crusnikatelier.ildque.BotCommand;
 import com.github.axet.vget.VGet;
 import com.github.axet.vget.info.VGetParser;
+import com.github.axet.vget.info.VideoFileInfo;
 import com.github.axet.vget.info.VideoInfo;
 import com.github.axet.vget.info.VideoInfo.States;
 
@@ -50,10 +56,8 @@ public class PlayCommand implements BotCommand{
 	@Override
 	public void execute(Event event, String[] argv) {
 		MessageReceivedEvent evt = (MessageReceivedEvent)event;
-		String content = evt.getMessage().getContent();
 		VideoInfo info = resolveVideoInfo(argv);
-		
-		// TODO Auto-generated method stub
+		new Thread(new  VideoPlayer(evt, info)).start();
 	}
 	
 	public VideoInfo resolveVideoInfo(String[] args){
@@ -98,6 +102,17 @@ public class PlayCommand implements BotCommand{
 		
 		@Override
 		public void run() {
+			
+			try {
+				File tempDir = Files.createTempDirectory("ildque").toFile();
+				logger.debug("temporary directory : " + tempDir.getAbsolutePath());
+				VGet v = new VGet(i, tempDir);
+				v.download();
+			} 
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
 			while(i.getState() != States.DONE){
 				try {
 					Thread.sleep(2000);
@@ -110,14 +125,22 @@ public class PlayCommand implements BotCommand{
 			try{
 				IVoiceChannel c = moveBotToUser();
 				AudioPlayer ap = new AudioPlayer(c.getGuild());
+				for(VideoFileInfo vfi :  i.getInfo()){
+					logger.debug("attempting to queue {}", vfi.targetFile.getAbsolutePath());
+					ap.queue(vfi.targetFile);
+				}
 				//LF audio support!
 			}
 			catch(MissingPermissionsException e){ 
 				String msg = "Unable to join voice channel : insufficent permissions";
 				throw new IllegalStateException(msg, e);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			
 		}
 		
 		IVoiceChannel moveBotToUser() throws MissingPermissionsException{
