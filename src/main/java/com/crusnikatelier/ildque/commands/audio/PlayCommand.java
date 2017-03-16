@@ -1,4 +1,4 @@
-package com.crusnikatelier.ildque.commands;
+package com.crusnikatelier.ildque.commands.audio;
 
 
 import java.net.MalformedURLException;
