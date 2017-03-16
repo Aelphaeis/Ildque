@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 public class IldqueInitialContextFactory implements InitialContextFactory {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IldqueInitialContextFactory.class);
+	public static final String PREFIX = "il ";
 
 	@Override
 	public Context getInitialContext(Hashtable<?, ?> environment) throws NamingException {
@@ -22,7 +23,7 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		
 		logger.trace("Populating initial context");
 		//Stub in some default configuration settings
-		init.bind(BotConfiguration.Settings.PREFIX.getValue(), "il ");
+		init.bind(BotConfiguration.Settings.PREFIX.getValue(), PREFIX);
 		return init;
 	}
 }

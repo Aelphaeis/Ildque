@@ -24,7 +24,7 @@ public class TerminateCommandTest {
 		
 		//Set up test
 		final BooleanHolder isLoggedOut = new BooleanHolder();
-		String content = "Ildque terminate";
+		String content = "il terminate";
 		MessageReceivedEvent mre = stubMessageReceivedEvent(content);
 		
 		IDiscordClient client = Mockito.mock(IDiscordClient.class);

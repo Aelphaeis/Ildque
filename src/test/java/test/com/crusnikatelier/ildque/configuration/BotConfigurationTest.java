@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.ildque.configuration.BotConfiguration;
+import com.crusnikatelier.ildque.configuration.IldqueInitialContextFactory;
 
 public class BotConfigurationTest {
 
@@ -14,7 +15,7 @@ public class BotConfigurationTest {
 	@Test
 	public void prefixTest(){
 		String prefix = BotConfiguration.value(BotConfiguration.Settings.PREFIX);
-		assertEquals("Ildque ", prefix);
+		assertEquals(IldqueInitialContextFactory.PREFIX, prefix);
 		logger.debug("test complete");
 	}
 }
