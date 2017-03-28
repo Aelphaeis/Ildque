@@ -27,7 +27,7 @@ public class BotConfiguration {
 		TOKEN("configuration/token"),
 		LOG4J2("configuration/log4j2");
 		
-		private static final String SETTING_PREFIX = "java:comp/env/ildque/";
+		protected static final String SETTING_PREFIX = "java:comp/env/ildque/";
 		private String shortName;
 		private String value;
 		
