@@ -23,7 +23,8 @@ public class BotConfiguration {
 	}
 	
 	public static enum Settings {
-		PREFIX("java:comp/env/ildque/configuration/prefix");
+		PREFIX("java:comp/env/ildque/configuration/prefix"),
+		TOKEN("java:comp/env/ildque/configuration/token");
 		
 		private String value;
 		
