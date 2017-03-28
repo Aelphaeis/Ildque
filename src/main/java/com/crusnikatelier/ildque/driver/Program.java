@@ -33,7 +33,7 @@ public class Program {
 	}
 	
 	
-	Options getOptions(){
+	static Options getOptions(){
 		Settings[] settings = BotConfiguration.Settings.values();
 		Options options = new Options();
 		for(Settings setting : settings){
