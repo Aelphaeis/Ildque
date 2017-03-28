@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class IldqueInitialContext implements Context{
 	private static final Logger logger = LoggerFactory.getLogger(IldqueInitialContext.class);
+	protected Hashtable<?, ?> environment;
 	Map<String, Object> bindings;
 	
 	public IldqueInitialContext(){
@@ -148,17 +149,19 @@ public class IldqueInitialContext implements Context{
 
 	@Override
 	public Object addToEnvironment(String propName, Object propVal) throws NamingException {
-		throw new UnsupportedOperationException("Operation not implemented yet.");
+		@SuppressWarnings("unchecked")
+		Hashtable<Object, Object> ht = (Hashtable<Object, Object>)environment;
+		return ht.put(propName, propVal);
 	}
 
 	@Override
 	public Object removeFromEnvironment(String propName) throws NamingException {
-		throw new UnsupportedOperationException("Operation not implemented yet.");
+		return environment.remove(propName);
 	}
 
 	@Override
 	public Hashtable<?, ?> getEnvironment() throws NamingException {
-		throw new UnsupportedOperationException("Operation not implemented yet.");
+		return environment;
 	}
 
 	@Override

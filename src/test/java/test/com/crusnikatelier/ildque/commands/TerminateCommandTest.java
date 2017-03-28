@@ -7,7 +7,9 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import com.crusnikatelier.ildque.Bot;
 import com.crusnikatelier.ildque.BotCommandTextHandler;
+import com.crusnikatelier.ildque.configuration.BotConfiguration;
 
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
@@ -39,7 +41,7 @@ public class TerminateCommandTest {
 		Mockito.when(mre.getClient()).thenReturn(client);
 		
 		//Actually run the test
-		BotCommandTextHandler handler = new BotCommandTextHandler(null);
+		BotCommandTextHandler handler = new BotCommandTextHandler(new Bot());
 		handler.handle(mre);
 		
 		//Check the result

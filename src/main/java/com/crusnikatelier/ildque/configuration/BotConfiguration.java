@@ -1,5 +1,7 @@
 package com.crusnikatelier.ildque.configuration;
 
+import java.util.Hashtable;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -9,10 +11,18 @@ import org.slf4j.LoggerFactory;
 
 public class BotConfiguration {
 	private static Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
+	Hashtable<?, ?> environment;
 	
-	public static String value(Settings setting){
+	public BotConfiguration(){ }
+	
+	public BotConfiguration(Hashtable<?, ?> environment){
+		this();
+		this.environment = environment;
+	}
+	
+	public String value(Settings setting){
 		try {
-			Context initialContext = new InitialContext();
+			Context initialContext = new InitialContext(environment);
 			return String.valueOf(initialContext.lookup(setting.getValue()));
 		}
 		catch (NamingException e) {

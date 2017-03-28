@@ -10,7 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.crusnikatelier.ildque.configuration.BotConfiguration;
+import com.crusnikatelier.ildque.configuration.BotConfiguration.Settings;
 import com.crusnikatelier.utilities.ReflectionHelper;
 import com.crusnikatelier.utilities.StringHelper;
 
@@ -95,7 +95,7 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 	}
 	
 	public String getPrefix(){
-		return BotConfiguration.value(BotConfiguration.Settings.PREFIX);
+		return bot.getConfiguration().value(Settings.PREFIX);
 	}
 
 	public List<BotCommand> getCommands() {
