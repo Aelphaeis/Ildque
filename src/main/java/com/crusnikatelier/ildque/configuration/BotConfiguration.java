@@ -23,13 +23,17 @@ public class BotConfiguration {
 	}
 	
 	public static enum Settings {
-		PREFIX("java:comp/env/ildque/configuration/prefix"),
-		TOKEN("java:comp/env/ildque/configuration/token");
+		PREFIX("configuration/prefix"),
+		TOKEN("configuration/token");
 		
+		private static final String SETTING_PREFIX = "java:comp/env/ildque/";
+		private String shortName;
 		private String value;
 		
+		
 		Settings(String value){
-			setValue(value);
+			setShortName(value);
+			setValue(SETTING_PREFIX + value);
 		}
 
 		public String getValue() {
@@ -39,5 +43,14 @@ public class BotConfiguration {
 		protected void setValue(String value) {
 			this.value = value;
 		}
+
+		public String getShortName() {
+			return shortName;
+		}
+
+		protected void setShortName(String shortName) {
+			this.shortName = shortName;
+		}
+		
 	}
 }
