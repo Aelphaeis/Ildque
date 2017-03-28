@@ -24,7 +24,8 @@ public class BotConfiguration {
 	
 	public static enum Settings {
 		PREFIX("configuration/prefix"),
-		TOKEN("configuration/token");
+		TOKEN("configuration/token"),
+		LOG4J2("configuration/log4j2");
 		
 		private static final String SETTING_PREFIX = "java:comp/env/ildque/";
 		private String shortName;
