@@ -17,12 +17,10 @@ import com.crusnikatelier.ildque.Bot;
 import com.crusnikatelier.ildque.BotCommand;
 import com.crusnikatelier.ildque.BotCommandTextHandler;
 import com.crusnikatelier.ildque.BotSpecialCommand;
+import com.crusnikatelier.utilities.DiscordHelper;
 
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 
 public class HelpCommand implements BotSpecialCommand{
 	Logger logger = LoggerFactory.getLogger(HelpCommand.class);
@@ -87,13 +85,6 @@ public class HelpCommand implements BotSpecialCommand{
 			builder.append(formatted);
 		}
 		builder.append("```");
-		
-		MessageReceivedEvent evt = (MessageReceivedEvent)event;
-		try {
-			evt.getMessage().getChannel().sendMessage(builder.toString());
-		} 
-		catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-			logger.error("Unable to send message", e);
-		}
+		DiscordHelper.sendMessage(event, builder.toString());
 	}
 }
