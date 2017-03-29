@@ -33,7 +33,12 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		IldqueInitialContext init = new IldqueInitialContext();
 		
 		for(Entry<?, ?> set : environment.entrySet()){
-			defaultEnvironment.put(set.getKey().toString(), set.getValue().toString());
+			String key = set.getKey().toString();
+			String value = set.getValue().toString();
+			
+			String msg = "Initializing context with environment setting {%s : %s}";
+			logger.info(String.format(msg, key, value));
+			defaultEnvironment.put(key, value);
 		}
 
 		Enumeration<?> keys = defaultEnvironment.keys();
