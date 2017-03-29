@@ -11,19 +11,27 @@ import org.slf4j.LoggerFactory;
 
 public class BotConfiguration {
 	private static Logger logger = LoggerFactory.getLogger(BotConfiguration.class);
-	Hashtable<?, ?> environment;
-	
+	Context ctxt;
 	public BotConfiguration(){ }
 	
 	public BotConfiguration(Hashtable<?, ?> environment){
 		this();
-		this.environment = environment;
+		this.ctxt = createInitialContext(environment);
+	}
+	
+	private InitialContext createInitialContext(Hashtable<?, ?> env){
+		try{
+			return new InitialContext(env);
+		}
+		catch(NamingException e){
+			String err ="Unable to initialize context";
+			throw new RuntimeException(err, e);
+		}
 	}
 	
 	public String value(Settings setting){
 		try {
-			Context initialContext = new InitialContext(environment);
-			return String.valueOf(initialContext.lookup(setting.getValue()));
+			return String.valueOf(ctxt.lookup(setting.getValue()));
 		}
 		catch (NamingException e) {
 			String msg = "Unable to retrieve setting";
