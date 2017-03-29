@@ -50,6 +50,13 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		return init;
 	}
 	
+	/**
+	 * Adds an element of an environment to a context given a key.
+	 * @param env
+	 * @param ctxt
+	 * @param key
+	 * @throws NamingException
+	 */
 	protected static void ProcessEnvironmentVariable(Hashtable<String, String> env, Context ctxt, Object key) 
 			throws NamingException{
 		
