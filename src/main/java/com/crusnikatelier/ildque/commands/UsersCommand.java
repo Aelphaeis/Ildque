@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.ildque.BotCommand;
+import com.crusnikatelier.utilities.DiscordHelper;
 
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
@@ -20,9 +21,6 @@ import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.Presences;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 
 public class UsersCommand implements BotCommand {
 	
@@ -73,12 +71,7 @@ public class UsersCommand implements BotCommand {
 		String response = formatUserString(usersToDisplay);
 		
 		//Send response back
-		try {
-			chan.sendMessage(response);
-		} 
-		catch (MissingPermissionsException | RateLimitException | DiscordException e) {
-			logger.error("Unable to send command response", e);
-		}
+		DiscordHelper.sendMessage(chan, response);
 	}
 	
 	private String formatUserString(List<IUser> users){
