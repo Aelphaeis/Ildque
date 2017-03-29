@@ -9,7 +9,6 @@ import org.mockito.stubbing.Answer;
 
 import com.crusnikatelier.ildque.Bot;
 import com.crusnikatelier.ildque.BotCommandTextHandler;
-import com.crusnikatelier.ildque.configuration.BotConfiguration;
 
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
