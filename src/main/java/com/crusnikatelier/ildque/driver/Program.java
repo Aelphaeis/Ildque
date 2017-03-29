@@ -1,18 +1,13 @@
 package com.crusnikatelier.ildque.driver;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.spi.InitialContextFactory;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.omg.CORBA.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,40 +30,29 @@ public class Program {
 	private static final Options opts = getOptions();
 	
 	public static void main(String[] args) throws Throwable {
-		try{
-			//Use this to configure context factory
-			Hashtable<String, String> environment = new Hashtable<String, String>();
+		//Use this to configure context factory
+		Hashtable<String, String> environment = new Hashtable<String, String>();
+		
+		//Needed to parse options
+		CommandLineParser parser = new DefaultParser();
+		CommandLine line = parser.parse(opts, args);
+
+		//Add settings to the environment
+		for(Settings setting : BotConfiguration.Settings.values()){
+			//Transform short name to a name usable in the argument parameters
+			String shortname = setting.getShortName();
+			shortname = shortname.replace("/", "."); 
 			
-			//Needed to parse options
-			CommandLineParser parser = new DefaultParser();
-			CommandLine line = parser.parse(opts, args);
+			//Get the value of this specific option
+			Object optValue = line.getParsedOptionValue(shortname);
 
-			//Add settings to the environment
-			for(Settings setting : BotConfiguration.Settings.values()){
-				//Transform short name to a name usable in the argument parameters
-				String shortname = setting.getShortName();
-				shortname = shortname.replace("/", "."); 
-				
-				//Get the value of this specific option
-				Object optValue = line.getParsedOptionValue(shortname);
-
-				//If we have a value, add it to environment hash
-				if(optValue != null){
-					environment.put(shortname, optValue.toString());
-				}
+			//If we have a value, add it to environment hash
+			if(optValue != null){
+				environment.put(shortname, optValue.toString());
 			}
-			Context c = new InitialContext(environment);
-			Bot bot = new Bot(environment);
-			System.out.println(bot.getConfiguration().value(Settings.TOKEN));
 		}
-		catch(RuntimeException e){
-			e.printStackTrace();
-		}
-		//new Bot().run();
-//		long start = System.currentTimeMillis();
-//		long duration  = System.currentTimeMillis() - start;
-//		String msg = "Bot successfully started in {} millseconds with prefix '{}'";
-//		logger.info(msg, duration, BotConfiguration.value(BotConfiguration.Settings.PREFIX));
+		Bot bot = new Bot(environment);
+		bot.login();
 	}
 	
 	
@@ -79,8 +63,22 @@ public class Program {
 		for(Settings setting : settings){
 			String shortname = setting.getShortName();
 			shortname = shortname.replace("/", ".");
-			options.addOption(new Option(null, shortname, true, null));
+		
+			Option opt = new Option(null, shortname, true, null);
+			opt = customizeOption(setting, opt);
+			options.addOption(opt);
 		}
 		return options;
+	}
+
+	static Option customizeOption(Settings setting, Option opt){
+		switch(setting){
+			case TOKEN:
+				opt.setRequired(true);
+				break;
+			default:
+				break;
+		}
+		return opt;
 	}
 }
