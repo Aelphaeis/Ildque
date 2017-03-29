@@ -21,16 +21,6 @@ import com.crusnikatelier.ildque.configuration.BotConfiguration;
 import com.crusnikatelier.ildque.configuration.BotConfiguration.Settings;
 
 public class Program {
-	static {
-		//Override the log4j2 settings
-//		StringBuilder builder = new StringBuilder(System.getProperty("user.dir"));
-//		builder.append("/log4j2.xml");
-//		File confOverride = new File(builder.toString());
-//		if(confOverride.exists() && confOverride.isFile()){
-//			Configurator.initialize(null, confOverride.getAbsolutePath());
-//		}
-	}
-	
 	private static final Logger logger = LoggerFactory.getLogger(Program.class);
 	private static final Options opts = getOptions();
 	
