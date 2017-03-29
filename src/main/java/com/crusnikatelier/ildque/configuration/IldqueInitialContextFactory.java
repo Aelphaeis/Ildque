@@ -42,26 +42,32 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		}
 
 		Enumeration<?> keys = defaultEnvironment.keys();
-		Settings [] settings = BotConfiguration.Settings.values();
-	
+		
 		logger.trace("Populating initial context");
 		while(keys.hasMoreElements()){
-			Object key = keys.nextElement();
-			Object value = defaultEnvironment.get(key);
-			if(value == null){
-				continue;
-			}
-			String settingValue = value.toString();
-			String keyValue = key.toString();
-			
-			for(Settings setting : settings){
-				keyValue = keyValue.replace(".", "/");
-				if(setting.getShortName().equals(keyValue)){
-					init.bind(setting.getValue(), settingValue);
-				}
+			ProcessEnvironmentVariable(defaultEnvironment, init, keys.nextElement());
+		}
+		return init;
+	}
+	
+	protected static void ProcessEnvironmentVariable(Hashtable<String, String> env, Context ctxt, Object key) 
+			throws NamingException{
+		
+		//Check to ensure all the data checks out
+		String keyValue = key.toString();
+		Object value = env.get(key);
+		if(value == null){
+			return;
+		}
+		
+		Settings [] settings = BotConfiguration.Settings.values();
+		String settingValue = value.toString();
+		
+		for(Settings setting : settings){
+			keyValue = keyValue.replace(".", "/");
+			if(setting.getShortName().equals(keyValue)){
+				ctxt.bind(setting.getValue(), settingValue);
 			}
 		}
-		//Stub in some default configuration settings
-		return init;
 	}
 }
