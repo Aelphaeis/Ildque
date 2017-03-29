@@ -1,5 +1,8 @@
 package com.crusnikatelier.ildque.driver;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Hashtable;
 
 
@@ -8,6 +11,8 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +41,11 @@ public class Program {
 		//Needed to parse options
 		CommandLineParser parser = new DefaultParser();
 		CommandLine line = parser.parse(opts, args);
+		
+		Object loggingConfig = line.getParsedOptionValue("configuration.log4j2");
+		if(loggingConfig != null){
+			processLogging(loggingConfig.toString());
+		}
 
 		//Add settings to the environment
 		for(Settings setting : BotConfiguration.Settings.values()){
@@ -51,11 +61,10 @@ public class Program {
 				environment.put(shortname, optValue.toString());
 			}
 		}
+		
 		Bot bot = new Bot(environment);
 		bot.login();
 	}
-	
-	
 	
 	static Options getOptions(){
 		Settings[] settings = BotConfiguration.Settings.values();
@@ -80,5 +89,18 @@ public class Program {
 				break;
 		}
 		return opt;
+	}
+	
+	static void processLogging(String config){
+		try {
+			FileInputStream fis = new FileInputStream(new File(config));
+			ConfigurationSource source = new ConfigurationSource(fis);
+			Configurator.initialize(null, source);
+			logger.trace("test");
+			System.out.println("~");
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
