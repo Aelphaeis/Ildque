@@ -35,6 +35,7 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		for(Entry<?, ?> set : environment.entrySet()){
 			String key = set.getKey().toString();
 			String value = set.getValue().toString();
+			key = key.replace(".", "/");
 			
 			String msg = "Initializing context with environment setting {%s : %s}";
 			logger.info(String.format(msg, key, value));
@@ -73,6 +74,8 @@ public class IldqueInitialContextFactory implements InitialContextFactory {
 		for(Settings setting : settings){
 			keyValue = keyValue.replace(".", "/");
 			if(setting.getShortName().equals(keyValue)){
+				String msg = "binding {%s : %s} to context";
+				logger.trace(String.format(msg, setting.getValue(), settingValue));
 				ctxt.bind(setting.getValue(), settingValue);
 			}
 		}
