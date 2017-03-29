@@ -14,7 +14,7 @@ public class LeaveCommand implements BotCommand{
 	
 	public LeaveCommand(){
 		opts = new Options();
-		opts.addOption(new Option("", "Forceds bot to leave all connected voice channels"));
+		opts.addOption(new Option("", "Forces bot to leave all connected voice channels"));
 	}
 	
 	@Override
