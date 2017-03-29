@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crusnikatelier.ildque.configuration.BotConfiguration.Settings;
+import com.crusnikatelier.ildque.exceptions.IldqueException;
+import com.crusnikatelier.utilities.DiscordHelper;
 import com.crusnikatelier.utilities.ReflectionHelper;
 import com.crusnikatelier.utilities.StringHelper;
 
@@ -72,26 +74,46 @@ public class BotCommandTextHandler implements IListener<MessageReceivedEvent> {
 			throw new IllegalStateException("argv must have at least one element");
 		}
 		
-		String [] args = Arrays.copyOfRange(argv, 1, argv.length);
-
+		processCommand(event, argv);
+		processSpecialCommand(event, argv);
+	
+		logger.trace("Procesisng for message complete");
+	}
+	
+	public void processCommand(MessageReceivedEvent event, String [] argv){
 		logger.trace("Comparing against normal commands");
+		String [] args = Arrays.copyOfRange(argv, 1, argv.length);
+		
 		for (BotCommand command : commands) {
 			if (command.getName().equals(argv[0])) {
 				logger.trace("content matches command, calling command : {}", command.getName());
 				logCommandCall(event);
-				command.execute(event, args);
+				try{
+					command.execute(event, args);
+				}
+				catch(IldqueException e){
+					DiscordHelper.sendMessage(event, e.getMessage());
+				}
 			}
 		}
-
+	}
+	
+	public void processSpecialCommand(MessageReceivedEvent event, String [] argv){
+		logger.trace("Comparing against special commands");
+		String [] args = Arrays.copyOfRange(argv, 1, argv.length);
+		
 		for (BotSpecialCommand command : specialCommands) {
 			if (command.getName().equals(argv[0])) {
 				logger.trace("content matches command, calling command : {}", command.getName());
 				logCommandCall(event);
-				command.execute(bot, this, event, args);
+				try{
+					command.execute(bot, this, event, args);
+				}
+				catch(IldqueException e){
+					DiscordHelper.sendMessage(event, e.getMessage());
+				}
 			}
 		}
-		
-		logger.trace("Procesisng for message complete");
 	}
 	
 	public String getPrefix(){

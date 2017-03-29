@@ -2,6 +2,8 @@ package com.crusnikatelier.ildque;
 
 import org.apache.commons.cli.Options;
 
+import com.crusnikatelier.ildque.exceptions.IldqueException;
+
 import sx.blah.discord.api.events.Event;
 
 /**
@@ -12,5 +14,5 @@ import sx.blah.discord.api.events.Event;
 public interface BotSpecialCommand {
 	String getName();
 	Options getOptions();
-	void execute(Bot bot, BotCommandTextHandler handler, Event event, String[] argv);
+	void execute(Bot bot, BotCommandTextHandler handler, Event event, String[] argv) throws IldqueException;
 }
