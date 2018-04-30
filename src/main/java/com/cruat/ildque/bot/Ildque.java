@@ -20,7 +20,9 @@ public class Ildque implements AutoCloseable{
 	
 	public Ildque() {
 		ClientBuilder builder = new ClientBuilder();
-		builder.withToken(Settings.LOGIN_TOKEN.value(BotToken.class).getValue());
+		String token = Settings.LOGIN_TOKEN.value(BotToken.class).getValue();
+		logger.info("Starting bot with token {}", token);
+		builder.withToken(token);
 		client = builder.build();
 		client.login();
 	}
