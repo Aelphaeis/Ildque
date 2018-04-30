@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.bot.commands.AbstractCommand;
+import com.cruat.ildque.bot.commands.Command;
 import com.cruat.ildque.bot.exceptions.IldqueException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 import com.cruat.ildque.bot.utilities.Reflector;
@@ -25,8 +25,8 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 
 	public BotCommandHandler() {
 //		try {
-			ClassLoader loader = AbstractCommand.class.getClassLoader();
-			Package pk = AbstractCommand.class.getPackage();
+			ClassLoader loader = Command.class.getClassLoader();
+			Package pk = Command.class.getPackage();
 			for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
 				if (BotCommand.class.isAssignableFrom(cls)) {
 					registerCommand(cls);

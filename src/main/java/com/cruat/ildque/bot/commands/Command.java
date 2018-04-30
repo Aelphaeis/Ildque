@@ -4,7 +4,7 @@ import org.apache.commons.cli.Options;
 
 import com.cruat.ildque.bot.BotCommand;
 
-public abstract class AbstractCommand implements BotCommand{
+public abstract class Command implements BotCommand{
 
 	final Options options = new Options();
 	private final  String name = getClass().getSimpleName();

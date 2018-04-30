@@ -5,7 +5,7 @@ import com.cruat.ildque.bot.utilities.DiscordHelper;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
-public class HelpCommand extends AbstractCommand {
+public class Help extends Command {
 	
 	@Override
 	public String getName() {

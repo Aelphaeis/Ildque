@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cruat.ildque.bot.commands.HelpCommand;
+import com.cruat.ildque.bot.commands.Help;
 
 public class BotCommandHandlerTest {
 
@@ -22,7 +22,7 @@ public class BotCommandHandlerTest {
 	public void test() {
 		assertTrue(handler.commands
 			.stream()
-			.anyMatch(p-> p.getClass().equals(HelpCommand.class)));
+			.anyMatch(p-> p.getClass().equals(Help.class)));
 	}
 
 }
