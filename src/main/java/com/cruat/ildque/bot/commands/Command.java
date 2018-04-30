@@ -6,7 +6,7 @@ import com.cruat.ildque.bot.BotCommand;
 
 public abstract class Command implements BotCommand{
 
-	final Options options = new Options();
+	final Options opts = new Options();
 	private final  String name = getClass().getSimpleName();
 
 	@Override
@@ -16,6 +16,6 @@ public abstract class Command implements BotCommand{
 
 	@Override
 	public Options getOptions() {
-		return options;
+		return opts;
 	}
 }
