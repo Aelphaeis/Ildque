@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.cruat.ildque.config.BotToken;
 import com.cruat.ildque.config.Settings;
 
 import sx.blah.discord.api.ClientBuilder;
@@ -20,7 +18,7 @@ public class Ildque implements AutoCloseable{
 	
 	public Ildque() {
 		ClientBuilder builder = new ClientBuilder();
-		String token = Settings.LOGIN_TOKEN.value(BotToken.class).getValue();
+		String token = Settings.LOGIN_TOKEN.value(String.class);
 		logger.info("Starting bot with token {}", token);
 		builder.withToken(token);
 		client = builder.build();
