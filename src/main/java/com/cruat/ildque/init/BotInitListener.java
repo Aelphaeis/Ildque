@@ -3,31 +3,21 @@ package com.cruat.ildque.init;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.cruat.ildque.bot.Ildque;
+
 /**
  * Application Lifecycle Listener implementation class BotInitListener
  *
  */
 public class BotInitListener implements ServletContextListener {
 
-    /**
-     * Default constructor. 
-     */
-    public BotInitListener() {
-        // TODO Auto-generated constructor stub
-    }
+	Ildque bot;
 
-	/**
-     * @see ServletContextListener#contextDestroyed(ServletContextEvent)
-     */
-    public void contextDestroyed(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
-    }
-
-	/**
-     * @see ServletContextListener#contextInitialized(ServletContextEvent)
-     */
     public void contextInitialized(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
+    	bot = new Ildque();
     }
-	
+    
+    public void contextDestroyed(ServletContextEvent sce)  { 
+		bot.close();
+    }
 }
