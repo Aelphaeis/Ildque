@@ -162,10 +162,6 @@ public final class Reflector {
 
 		private static final long serialVersionUID = 909384213793458361L;
 
-		public ReflectorException() {
-			super();
-		}
-
 		public ReflectorException(String message) {
 			super(message);
 		}
@@ -174,8 +170,5 @@ public final class Reflector {
 			super(message, cause);
 		}
 
-		public ReflectorException(Throwable cause) {
-			super(cause);
-		}
 	}
 }
