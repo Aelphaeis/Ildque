@@ -1,7 +1,13 @@
 package com.cruat.ildque.init;
 
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.cruat.ildque.config.Settings;
 
 /**
  * Application Lifecycle Listener implementation class SystemIntegrityListener
@@ -9,11 +15,12 @@ import javax.servlet.ServletContextListener;
  */
 public class SystemIntegrityListener implements ServletContextListener {
 
+	private static final Logger logger = LogManager.getLogger();
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg)  { 
-         // TODO Auto-generated method stub
+    	logger.trace(Settings.value(Settings.LOGIN_TOKEN));
     }
 	
     
@@ -21,7 +28,6 @@ public class SystemIntegrityListener implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg)  { 
-         // TODO Auto-generated method stub
     }
 
 
