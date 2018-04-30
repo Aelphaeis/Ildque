@@ -13,7 +13,7 @@ public enum Settings {
 	private static final Logger logger = LogManager.getLogger();
 	
 	public static Object value(Settings setting){
-		return value(setting.getName());
+		return value(setting.nom);
 	}
 	
 	static Object value(String name) {
@@ -25,10 +25,15 @@ public enum Settings {
 			return null;
 		}
 	}
-	
+	/**
+	 * Returns true of object is not null and false if object is null or error occurred creating object.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	static boolean check(String name) {
 		try {
-			return new InitialContext().lookup(name) == null;
+			return new InitialContext().lookup(name) != null;
 		}
 		catch(NamingException e) {
 			return false;
@@ -41,29 +46,31 @@ public enum Settings {
 	}
 	
 	Settings(String name, boolean nullible){
-		this.name = name;
+		this.nom = name;
 		this.nullible = nullible;
 		if(!this.nullible && !check(name)) {
 			throw new IllegalStateException("Bad settings");
 		}
 	}
 	
-	private final String name;
-	private final boolean nullible;
+	public final String nom;
+	public final boolean nullible;
 
-	public String getName() {
-		return name;
-	}
-
-	public boolean isNullible() {
-		return nullible;
+	/**
+	 * Get the value of the setting and cast it
+	 * @param cls
+	 * @return
+	 */
+	public <T> T value(Class<T> cls){
+		return cls.cast(value());
 	}
 	
-	public <T> T getValue(Class<T> cls){
-		return cls.cast(getValue());
-	}
 	
-	public Object getValue(){
+	/**
+	 * Get value of the setting 
+	 * @return
+	 */
+	public Object value(){
 		return value(this);
 	}
 }
