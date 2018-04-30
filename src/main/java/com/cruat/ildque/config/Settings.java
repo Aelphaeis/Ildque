@@ -8,7 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 
 public enum Settings {
-	LOGIN_TOKEN("java:comp/env/ildque/token");
+	LOGIN_TOKEN("java:comp/env/ildque/token"),
+	TEST("java:comp/env/ildque/test", true);
 	
 	private static final Logger logger = LogManager.getLogger();
 	
