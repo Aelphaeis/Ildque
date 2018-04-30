@@ -177,10 +177,5 @@ public final class Reflector {
 		public ReflectorException(Throwable cause) {
 			super(cause);
 		}
-
-		protected ReflectorException(String message, Throwable cause, boolean enableSuppression,
-				boolean writableStackTrace) {
-			super(message, cause, enableSuppression, writableStackTrace);
-		}
 	}
 }
