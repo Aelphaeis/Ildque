@@ -20,7 +20,7 @@ public class SystemIntegrityListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg)  { 
-    	logger.info(Settings.TEST.value());
+    	logger.info(Settings.PREFIX.value());
     }
 	
     

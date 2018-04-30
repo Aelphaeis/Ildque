@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 public enum Settings {
 	LOGIN_TOKEN("java:comp/env/ildque/token"),
-	TEST("java:comp/env/ildque/test", true);
+	PREFIX("java:comp/env/ildque/prefix", true);
 	
 	private static final Logger logger = LogManager.getLogger();
 	
@@ -65,7 +65,6 @@ public enum Settings {
 	public <T> T value(Class<T> cls){
 		return cls.cast(value());
 	}
-	
 	
 	/**
 	 * Get value of the setting 
