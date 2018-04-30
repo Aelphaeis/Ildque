@@ -32,8 +32,6 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 	@Override
 	public void handle(MessageReceivedEvent event) {
 		String content = event.getMessage().getContent();
-		
-
 	}
 
 	private void registerCommand(Class<?> cmdClass) {
