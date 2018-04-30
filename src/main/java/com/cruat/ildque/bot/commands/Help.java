@@ -8,11 +8,6 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 public class Help extends Command {
 	
 	@Override
-	public String getName() {
-		return "help";
-	}
-
-	@Override
 	public void execute(MessageReceivedEvent event, String[] argv) throws IldqueException {
 		DiscordHelper.sendMessage(event, "help called");
 	}
