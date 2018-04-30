@@ -1,13 +1,19 @@
 package com.cruat.ildque.bot.commands;
 
 import com.cruat.ildque.bot.exceptions.IldqueException;
+import com.cruat.ildque.bot.utilities.DiscordHelper;
 
-import sx.blah.discord.api.events.Event;
+import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 public class HelpCommand extends AbstractCommand {
+	
+	@Override
+	public String getName() {
+		return "help";
+	}
 
 	@Override
-	public void execute(Event event, String[] argv) throws IldqueException {
-		//todo implement
+	public void execute(MessageReceivedEvent event, String[] argv) throws IldqueException {
+		DiscordHelper.sendMessage(event, "help called");
 	}
 }

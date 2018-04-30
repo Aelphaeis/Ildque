@@ -18,6 +18,8 @@ public class BotInitListener implements ServletContextListener {
     }
     
     public void contextDestroyed(ServletContextEvent sce)  { 
-		bot.close();
+    	if(bot != null) {
+    		bot.close();
+    	}
     }
 }
