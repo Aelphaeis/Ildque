@@ -11,9 +11,5 @@ public class Ildque {
 
 	public Ildque() {
 		ClientBuilder builder = new ClientBuilder();
-		
 	}
-	
-	
-	
 }
