@@ -20,7 +20,7 @@ public class SystemIntegrityListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg)  { 
-    	logger.trace(Settings.value(Settings.LOGIN_TOKEN));
+    	Settings.LOGIN_TOKEN.value();
     }
 	
     
