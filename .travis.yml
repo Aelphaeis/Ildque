@@ -4,5 +4,8 @@ jdk:
   - oraclejdk8
 
 #deploy:
+#  skip_cleanup: true
+#  provider: script
+#  script: src/main/scripts/deployment.sh
 #  on:
 #    branch: master
