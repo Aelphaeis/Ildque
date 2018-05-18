@@ -5,22 +5,24 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.cruat.ildque.config.Settings;
+
+import com.cruat.ildque.config.Configuration;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
-public class Ildque implements AutoCloseable{
+public class Ildque implements AutoCloseable {
 	private static final Logger logger = LogManager.getLogger();
 	
 	final List<BotCommand> commands = new ArrayList<>();
 	IDiscordClient client;
 	
 	public Ildque() {
+		Configuration conf = Configuration.load();
 		ClientBuilder builder = new ClientBuilder();
-		String token = Settings.LOGIN_TOKEN.value(String.class);
+		String token = conf.getToken();
 		logger.info("Starting bot with token {}", token);
 		builder.withToken(token);
 		

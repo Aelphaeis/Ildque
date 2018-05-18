@@ -13,7 +13,7 @@ import com.cruat.ildque.bot.exceptions.IldqueException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 import com.cruat.ildque.bot.utilities.Reflector;
 import com.cruat.ildque.bot.utilities.Strings;
-import com.cruat.ildque.config.Settings;
+import com.cruat.ildque.config.Configuration;
 
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -24,7 +24,6 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 	final List<BotCommand> commands = new ArrayList<>();
 
 	public BotCommandHandler() {
-//		try {
 			ClassLoader loader = Command.class.getClassLoader();
 			Package pk = Command.class.getPackage();
 			for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
@@ -32,15 +31,12 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 					registerCommand(cls);
 				}
 			}
-//		} catch (ClassNotFoundException e) { //Can't happen
-//			logger.fatal("Unable to find package for commands", e);
-//		}
 	}
 
 	@Override
 	public void handle(MessageReceivedEvent event) {
 		String content = event.getMessage().getContent();
-		String prefix = Settings.PREFIX.value(String.class);
+		String prefix =  Configuration.load().getPrefix();
 		if(!content.startsWith(prefix)) {
 			logger.trace("Inappropriate prefix, disregarding message");
 			return;

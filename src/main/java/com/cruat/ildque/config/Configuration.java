@@ -1,10 +1,7 @@
 package com.cruat.ildque.config;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.Writer;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,23 +15,11 @@ import com.cruat.ildque.bot.utilities.Serializer;
 public class Configuration {
 
 	private static final Logger logger = LogManager.getLogger();
-	public static void save(Configuration conf) {
-		File file = new File(DEFAULT_LOCATION);
-		try (Writer writer = new FileWriter(file)){
-			Serializer.serialize(conf, writer);
-			logger.trace("Wrote configuration to {}", file.getAbsolutePath());
-		} catch (Exception e) {
-			//this really ought to be impossible
-			String err = "Unable to save configuration";
-			throw new IllegalStateException(err, e);
-		}
-	}
-	
 	public static Configuration load() {
-		File file = new File(DEFAULT_LOCATION);
-		try (Reader reader = new FileReader(file)){
-			Configuration conf = Serializer.deserialize(reader, Configuration.class);
-			logger.trace("Read configuration from {}", file.getAbsolutePath());
+		ClassLoader l = Configuration.class.getClassLoader();
+		try(Reader r = new InputStreamReader(l.getResourceAsStream(DEFAULT_LOCATION))) {
+			Configuration conf = Serializer.deserialize(r, Configuration.class);
+			logger.trace("Read configuration from classpath");
 			return conf;
 		} catch (Exception e) {
 			//this really ought to be impossible
@@ -43,7 +28,7 @@ public class Configuration {
 		}
 	}
 	
-	private static final String DEFAULT_LOCATION = "src/main/resource/configuration.xml";
+	private static final String DEFAULT_LOCATION = "Configuration.xml";
 	
 	
 	private String token;
