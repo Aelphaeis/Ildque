@@ -6,6 +6,6 @@ jdk:
 deploy:
   skip_cleanup: true
   provider: script
-  script: /src/main/scripts/deployment.sh
+  script: pwd && ls
   on:
     branch: master
