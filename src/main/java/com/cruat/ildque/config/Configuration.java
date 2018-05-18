@@ -28,7 +28,7 @@ public class Configuration {
 		}
 	}
 	
-	private static final String DEFAULT_LOCATION = "Configuration.xml";
+	private static final String DEFAULT_LOCATION = "configuration.xml";
 	
 	
 	private String token;
