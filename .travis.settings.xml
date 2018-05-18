@@ -1,7 +1,7 @@
 <settings>
   <servers>
     <server>
-      <id>ildque-server</id>
+      <id>crusnikatelier-server</id>
       <username>${env.username}</username>
       <password>${env.password}</password>
     </server>
