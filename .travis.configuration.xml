@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Configuration [
+	<!ELEMENT prefix (#PCDATA)> 
+	<!ELEMENT token (#PCDATA)>
+]>
+<Configuration>
+    <prefix>${env.prefix}</prefix>
+    <token>${env.token}</token>
+</Configuration>
