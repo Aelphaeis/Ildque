@@ -77,7 +77,7 @@
 				<version>2.2</version>
 				<configuration>
 					<url>http://ildque.cruat.com/manager/text</url>
-					<server>ildque-server</server>
+					<server>crusnikatelier-server</server>
 					<path>/</path>
 					<port>80</port>
 				</configuration>
