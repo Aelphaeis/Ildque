@@ -3,6 +3,7 @@ package com.cruat.ildque.bot;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,15 +23,17 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 
 	private static final Logger logger = LogManager.getLogger();
 	final List<BotCommand> commands = new ArrayList<>();
+	final Ildque context;
 
-	public BotCommandHandler() {
-			ClassLoader loader = Command.class.getClassLoader();
-			Package pk = Command.class.getPackage();
-			for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
-				if (BotCommand.class.isAssignableFrom(cls)) {
-					registerCommand(cls);
-				}
+	public BotCommandHandler(Ildque context) {
+		this.context = context;
+		ClassLoader loader = Command.class.getClassLoader();
+		Package pk = Command.class.getPackage();
+		for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
+			if (BotCommand.class.isAssignableFrom(cls)) {
+				registerCommand(cls);
 			}
+		}
 	}
 
 	@Override
@@ -75,9 +78,15 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 			}
 			
 			Constructor<?> ctor = cmdClass.getConstructor();
-			commands.add((BotCommand) ctor.newInstance());
+			BotCommand command = (BotCommand) ctor.newInstance();
+			command.setContext(context);
+			commands.add(command);
 		} catch (Exception e) {
 			logger.error("Unable to register command", e);
 		}
+	}
+
+	public List<BotCommand> getCommands() {
+		return Collections.unmodifiableList(commands);
 	}
 }

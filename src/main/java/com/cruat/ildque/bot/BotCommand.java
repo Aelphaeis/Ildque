@@ -7,7 +7,10 @@ import com.cruat.ildque.bot.exceptions.IldqueException;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 public interface BotCommand {
+	
 	String getName();
 	Options getOptions();
+	void setContext(Ildque context);
+	Ildque getContext();
 	void execute(MessageReceivedEvent event, String[] argv) throws IldqueException;
 }

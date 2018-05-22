@@ -1,8 +1,5 @@
 package com.cruat.ildque.bot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,17 +7,16 @@ import com.cruat.ildque.config.Configuration;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.api.events.IListener;
-import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 public class Ildque implements AutoCloseable {
 	private static final Logger logger = LogManager.getLogger();
 	
-	final List<BotCommand> commands = new ArrayList<>();
-	IDiscordClient client;
+	final IDiscordClient client;
+	final BotCommandHandler handler;
+	final Configuration configuration;
 	
-	public Ildque() {
-		Configuration conf = Configuration.load();
+	public Ildque(Configuration conf) {
+		configuration = conf;
 		ClientBuilder builder = new ClientBuilder();
 		String token = conf.getToken();
 		logger.info("Starting bot with token {}", token);
@@ -28,7 +24,7 @@ public class Ildque implements AutoCloseable {
 		
 		
 		client = builder.build();
-		IListener<MessageReceivedEvent> handler = new BotCommandHandler();
+		handler = new BotCommandHandler(this);
 		client.getDispatcher().registerListener(handler);
 		client.login();
 		
@@ -37,5 +33,17 @@ public class Ildque implements AutoCloseable {
 	@Override
 	public void close() {
 		client.logout();
+	}
+
+	public IDiscordClient getClient() {
+		return client;
+	}
+
+	public BotCommandHandler getHandler() {
+		return handler;
+	}
+
+	public Configuration getConfiguration() {
+		return configuration;
 	}
 }
