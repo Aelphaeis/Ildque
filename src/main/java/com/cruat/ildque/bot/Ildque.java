@@ -1,8 +1,5 @@
 package com.cruat.ildque.bot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +13,6 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 public class Ildque implements AutoCloseable {
 	private static final Logger logger = LogManager.getLogger();
 	
-	final List<BotCommand> commands = new ArrayList<>();
 	IDiscordClient client;
 	
 	public Ildque() {
