@@ -7,10 +7,10 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 public class Site extends Command {
 
 	public static final String ILDQUE_LINK = "http://ildque.cruat.com";
+	public static final String MESSAGE = "<" + ILDQUE_LINK + ">";
 	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] argv) {
-		String message = "<" + ILDQUE_LINK + ">";
-		DiscordHelper.sendMessage(event, message);
+		DiscordHelper.sendMessage(event, MESSAGE);
 	}
 }
