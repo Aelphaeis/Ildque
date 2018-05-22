@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.cruat.ildque.bot.Ildque;
+import com.cruat.ildque.config.Configuration;
 
 /**
  * Application Lifecycle Listener implementation class BotInitListener
@@ -14,7 +15,8 @@ public class BotInitListener implements ServletContextListener {
 	Ildque bot;
 
     public void contextInitialized(ServletContextEvent sce)  { 
-    	bot = new Ildque();
+    	Configuration conf =  Configuration.load();
+    	bot = new Ildque(conf);
     }
     
     public void contextDestroyed(ServletContextEvent sce)  { 
