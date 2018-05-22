@@ -12,7 +12,7 @@ public class DiscordHelper {
 			channel.sendMessage(msg);
 		}
 		catch (MissingPermissionsException e) {
-
+			//you can't really do anything here.
 		}
 		catch (RateLimitException e) {
 			try { 
@@ -20,6 +20,8 @@ public class DiscordHelper {
 				sendMessage(channel, msg);
 			}
 			catch(InterruptedException ie){
+				//should never happen.
+				Thread.currentThread().interrupt();
 				return;
 			}
 		} 
