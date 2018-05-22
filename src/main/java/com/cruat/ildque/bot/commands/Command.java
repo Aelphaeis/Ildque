@@ -8,7 +8,7 @@ import com.cruat.ildque.bot.Ildque;
 public abstract class Command implements BotCommand{
 
 	final Options opts = new Options();
-	private final String name = getClass().getSimpleName();
+	private final String name = getClass().getSimpleName().toLowerCase();
 	private Ildque bot;
 
 	@Override
