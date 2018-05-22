@@ -24,13 +24,13 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 	final List<BotCommand> commands = new ArrayList<>();
 
 	public BotCommandHandler() {
-			ClassLoader loader = Command.class.getClassLoader();
-			Package pk = Command.class.getPackage();
-			for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
-				if (BotCommand.class.isAssignableFrom(cls)) {
-					registerCommand(cls);
-				}
+		ClassLoader loader = Command.class.getClassLoader();
+		Package pk = Command.class.getPackage();
+		for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
+			if (BotCommand.class.isAssignableFrom(cls)) {
+				registerCommand(cls);
 			}
+		}
 	}
 
 	@Override
