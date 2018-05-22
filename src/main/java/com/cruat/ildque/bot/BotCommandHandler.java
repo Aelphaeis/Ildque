@@ -21,6 +21,11 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 
+	public static String[] resolveArgv(String content, String p) {
+		String cmdText = content.substring(p.length());
+		return  Strings.translateCommandline(cmdText);
+	}
+	
 	private static final Logger logger = LogManager.getLogger();
 	final List<BotCommand> commands = new ArrayList<>();
 	final Ildque context;
@@ -45,10 +50,7 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 			return;
 		}
 		
-		String cmdText = content.substring(prefix.length());
-		String[] argv = Strings.translateCommandline(cmdText);
-		
-
+		String[] argv =  resolveArgv(content, prefix);
 		processCommand(event, argv);
 	}
 	
@@ -71,7 +73,6 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 			String err = "Unknown Exception occurred";
 			logger.fatal(err, e);
 		}
-
 	}
 
 	private void registerCommand(Class<?> cmdClass) {
