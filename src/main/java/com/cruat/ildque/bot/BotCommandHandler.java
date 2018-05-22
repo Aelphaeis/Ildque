@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cruat.ildque.bot.commands.Command;
-import com.cruat.ildque.bot.exceptions.IldqueException;
+import com.cruat.ildque.bot.exceptions.CommandException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 import com.cruat.ildque.bot.utilities.Reflector;
 import com.cruat.ildque.bot.utilities.Strings;
@@ -57,7 +57,7 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 		try {
 			if (argv.length < 1) {
 				String err = "command prefix found but no command";
-				throw new IldqueException(err);
+				throw new CommandException(err);
 			}
 
 			for (BotCommand command : commands) {
@@ -65,8 +65,11 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 					command.execute(event, argv);
 				}
 			}
-		} catch (IldqueException e) {
+		} catch (CommandException e) {
 			DiscordHelper.sendMessage(event, e.getMessage());
+		} catch(Exception e) {
+			String err = "Unknown Exception occurred";
+			logger.fatal(err, e);
 		}
 
 	}
