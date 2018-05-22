@@ -23,6 +23,7 @@ public class Help extends Command {
 	
 	private static final int DEFAULT_WIDTH = 100;
 	private static final Logger logger = LogManager.getLogger();
+	private static final String USAGE_FORMAT = "%s %s";
 
 	@Override
 	public void execute(MessageReceivedEvent event, String[] argv) throws IldqueException {
@@ -49,13 +50,13 @@ public class Help extends Command {
 		HelpFormatter formatter = new HelpFormatter();
 		
 		StringBuilder builder = new StringBuilder("```");
-		
+		String prefix = getContext().getConfiguration().getPrefix();
 		for(BotCommand cmd : commands){
 			StringWriter sw = new StringWriter();
 			PrintWriter writer = new PrintWriter(sw);
 
 			
-			String usage = getContext().getConfiguration().getPrefix() + cmd.getName();
+			String usage = String.format(USAGE_FORMAT, prefix, cmd.getName());
 			Options opts = cmd.getOptions();
 			
 			formatter.printHelp(writer, DEFAULT_WIDTH, usage , "", opts, 7, 2, "");

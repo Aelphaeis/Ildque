@@ -40,7 +40,7 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 	public void handle(MessageReceivedEvent event) {
 		String content = event.getMessage().getContent();
 		String prefix =  Configuration.load().getPrefix();
-		if(!content.startsWith(prefix)) {
+		if(!content.startsWith(prefix + " ")) {
 			logger.trace("Inappropriate prefix, disregarding message");
 			return;
 		}
