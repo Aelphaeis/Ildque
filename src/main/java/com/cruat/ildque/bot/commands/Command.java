@@ -27,7 +27,7 @@ public abstract class Command implements BotCommand{
 	}
 	
 	@Override
-	public Ildque getContext(Ildque context) {
+	public Ildque getContext() {
 		return bot;
 	}
 }

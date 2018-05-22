@@ -11,6 +11,6 @@ public interface BotCommand {
 	String getName();
 	Options getOptions();
 	void setContext(Ildque context);
-	Ildque getContext(Ildque context);
+	Ildque getContext();
 	void execute(MessageReceivedEvent event, String[] argv) throws IldqueException;
 }
