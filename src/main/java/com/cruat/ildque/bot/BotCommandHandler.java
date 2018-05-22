@@ -3,6 +3,7 @@ package com.cruat.ildque.bot;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -83,5 +84,9 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 		} catch (Exception e) {
 			logger.error("Unable to register command", e);
 		}
+	}
+
+	public List<BotCommand> getCommands() {
+		return Collections.unmodifiableList(commands);
 	}
 }
