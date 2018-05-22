@@ -14,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cruat.ildque.bot.BotCommand;
-import com.cruat.ildque.bot.exceptions.IldqueException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -26,7 +25,7 @@ public class Help extends Command {
 	private static final String USAGE_FORMAT = "%s %s";
 
 	@Override
-	public void execute(MessageReceivedEvent event, String[] argv) throws IldqueException {
+	public void execute(MessageReceivedEvent event, String[] argv) {
 		try {
 			CommandLineParser parser = new DefaultParser();
 			CommandLine line  = parser.parse(getOptions(), argv);

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.cli.Option;
 
-import com.cruat.ildque.bot.exceptions.IldqueException;
+import com.cruat.ildque.bot.exceptions.CommandException;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IGuild;
@@ -21,7 +21,7 @@ public class Join extends Command{
 
 	@Override
 	public void execute(MessageReceivedEvent event, String[] argv)
-			throws IldqueException {
+			throws CommandException {
 		
 		IUser sender = event.getMessage().getAuthor();
 		IGuild guild = event.getGuild();
@@ -35,15 +35,15 @@ public class Join extends Command{
 		
 	}
 	
-	void handleRequest(List<IVoiceChannel> channels) throws IldqueException{
+	void handleRequest(List<IVoiceChannel> channels) throws CommandException {
 		if(channels.isEmpty()){
 			String msg = "Unable to find requester in voice channel";
-			throw new IldqueException(msg);
+			throw new CommandException(msg);
 		}
 		
 		if(channels.size() > 1){
 			String msg = "User appears to be in two channels";
-			throw new IldqueException(msg);
+			throw new CommandException(msg);
 		}
 		
 		try {
@@ -52,7 +52,7 @@ public class Join extends Command{
 		} 
 		catch (MissingPermissionsException e) {
 			String msg = "Unable to join voice channel : insufficent permissions";
-			throw new IldqueException(msg);
+			throw new CommandException(msg);
 		}
 	}
 }

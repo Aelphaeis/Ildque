@@ -2,8 +2,6 @@ package com.cruat.ildque.bot.commands;
 
 import org.apache.commons.cli.Option;
 
-import com.cruat.ildque.bot.exceptions.IldqueException;
-
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IVoiceChannel;
 
@@ -14,8 +12,7 @@ public class Leave extends Command{
 	}
 
 	@Override
-	public void execute(MessageReceivedEvent event, String[] argv)
-			throws IldqueException {
+	public void execute(MessageReceivedEvent event, String[] argv) {
 		for(IVoiceChannel channel : event.getClient().getConnectedVoiceChannels()) {
 			channel.leave();
 		}
