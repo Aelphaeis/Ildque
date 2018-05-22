@@ -7,5 +7,6 @@ deploy:
   skip_cleanup: true
   provider: script
   script: bash src/main/scripts/deployment.sh
+  skip_cleanup : true
   on:
     branch: master
