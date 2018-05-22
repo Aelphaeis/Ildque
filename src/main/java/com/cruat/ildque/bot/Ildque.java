@@ -28,7 +28,7 @@ public class Ildque implements AutoCloseable {
 		
 		
 		client = builder.build();
-		IListener<MessageReceivedEvent> handler = new BotCommandHandler();
+		IListener<MessageReceivedEvent> handler = new BotCommandHandler(this);
 		client.getDispatcher().registerListener(handler);
 		client.login();
 		

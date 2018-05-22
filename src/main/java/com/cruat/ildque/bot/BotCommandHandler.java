@@ -22,8 +22,10 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 
 	private static final Logger logger = LogManager.getLogger();
 	final List<BotCommand> commands = new ArrayList<>();
+	final Ildque context;
 
-	public BotCommandHandler() {
+	public BotCommandHandler(Ildque context) {
+		this.context = context;
 		ClassLoader loader = Command.class.getClassLoader();
 		Package pk = Command.class.getPackage();
 		for (Class<?> cls : Reflector.getClassesForPackage(pk, loader)) {
@@ -75,7 +77,9 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 			}
 			
 			Constructor<?> ctor = cmdClass.getConstructor();
-			commands.add((BotCommand) ctor.newInstance());
+			BotCommand command = (BotCommand) ctor.newInstance();
+			command.setContext(context);
+			commands.add(command);
 		} catch (Exception e) {
 			logger.error("Unable to register command", e);
 		}
