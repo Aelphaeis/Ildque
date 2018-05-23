@@ -11,10 +11,4 @@
 	<listener>
 		<listener-class>com.cruat.ildque.init.BotInitListener</listener-class>
 	</listener>
-
-	<resource-env-ref>	
-		<description>Login information for bot</description>
-		<resource-env-ref-name>ildque/token</resource-env-ref-name>
-		<resource-env-ref-type>com.cruat.ildque.config.BotToken</resource-env-ref-type>
-	</resource-env-ref>
 </web-app>
