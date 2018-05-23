@@ -16,22 +16,18 @@ public class BotCommandHandlerTest {
 
 	@Mock
 	Ildque ildque;
-	
+
 	@InjectMocks
 	BotCommandHandler handler;
-
 
 	@Before
 	public void setup() {
 		handler = new BotCommandHandler(ildque);
-		
-	}
-	
-	@Test
-	public void ctor_validContext_helpRegistered() {
-		assertTrue(handler.commands
-			.stream()
-			.anyMatch(p-> p.getClass().equals(Help.class)));
 	}
 
+	@Test
+	public void ctor_validContext_helpRegistered() {
+		assertTrue(handler.commands.stream()
+				.anyMatch(p -> p.getClass().equals(Help.class)));
+	}
 }

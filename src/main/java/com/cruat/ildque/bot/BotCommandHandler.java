@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cruat.ildque.bot.commands.Command;
-import com.cruat.ildque.bot.exceptions.IldqueException;
+import com.cruat.ildque.bot.exceptions.CommandException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 import com.cruat.ildque.bot.utilities.Reflector;
 import com.cruat.ildque.bot.utilities.Strings;
@@ -21,6 +21,11 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 
+	public static String[] resolveArgv(String content, String p) {
+		String cmdText = content.substring(p.length());
+		return  Strings.translateCommandline(cmdText);
+	}
+	
 	private static final Logger logger = LogManager.getLogger();
 	final List<BotCommand> commands = new ArrayList<>();
 	final Ildque context;
@@ -39,16 +44,13 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 	@Override
 	public void handle(MessageReceivedEvent event) {
 		String content = event.getMessage().getContent();
-		String prefix =  Configuration.load().getPrefix();
-		if(!content.startsWith(prefix + " ")) {
+		String prefix =  Configuration.load().getPrefix() + " ";
+		if(!content.startsWith(prefix)) {
 			logger.trace("Inappropriate prefix, disregarding message");
 			return;
 		}
 		
-		String cmdText = content.substring(prefix.length());
-		String[] argv = Strings.translateCommandline(cmdText);
-		
-
+		String[] argv =  resolveArgv(content, prefix);
 		processCommand(event, argv);
 	}
 	
@@ -57,7 +59,7 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 		try {
 			if (argv.length < 1) {
 				String err = "command prefix found but no command";
-				throw new IldqueException(err);
+				throw new CommandException(err);
 			}
 
 			for (BotCommand command : commands) {
@@ -65,10 +67,12 @@ public class BotCommandHandler implements IListener<MessageReceivedEvent> {
 					command.execute(event, argv);
 				}
 			}
-		} catch (IldqueException e) {
+		} catch (CommandException e) {
 			DiscordHelper.sendMessage(event, e.getMessage());
+		} catch(Exception e) {
+			String err = "Unknown Exception occurred";
+			logger.fatal(err, e);
 		}
-
 	}
 
 	private void registerCommand(Class<?> cmdClass) {
