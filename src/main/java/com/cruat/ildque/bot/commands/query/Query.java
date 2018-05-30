@@ -15,15 +15,9 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 public class Query extends Command {
 	private static final Logger logger = LogManager.getLogger();
 
-	
-	public Query() {
-
-		
-	}
-	
 	@Override
 	public void execute(MessageReceivedEvent e, String[] argv) throws CommandException {
-		
+		//TODO implement me
 	}
 	
 	public SessionFactory createSessionFactory() {
