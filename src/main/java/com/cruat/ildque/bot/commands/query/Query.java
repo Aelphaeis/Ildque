@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.cruat.ildque.bot.commands.Command;
 import com.cruat.ildque.bot.exceptions.CommandException;
+import com.cruat.ildque.bot.utilities.DiscordHelper;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
@@ -17,6 +18,7 @@ public class Query extends Command {
 
 	@Override
 	public void execute(MessageReceivedEvent e, String[] argv) throws CommandException {
+		DiscordHelper.sendMessage(e, "hello world");
 		//TODO implement me
 	}
 	
@@ -28,9 +30,11 @@ public class Query extends Command {
 			logger.info("Creating sessionFactory");
 			long start = System.currentTimeMillis();
 			
+			
 			SessionFactory factory = new MetadataSources ( registry )
 					.buildMetadata()
 					.buildSessionFactory();
+			
 			
 			long end = System.currentTimeMillis();
 			long duration = end - start;
