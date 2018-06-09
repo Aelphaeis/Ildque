@@ -71,4 +71,8 @@ public class Strings {
 		}
 		return result.toArray(new String[result.size()]);
 	}
+	
+	private Strings() {
+		//utility class
+	}
 }
