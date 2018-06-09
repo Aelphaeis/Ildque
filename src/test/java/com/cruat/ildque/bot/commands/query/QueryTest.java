@@ -1,7 +1,5 @@
 package com.cruat.ildque.bot.commands.query;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +12,6 @@ import test.util.Stubs;
 
 public class QueryTest {
 	
-	private static final Logger logger = LogManager.getLogger();
 	MessageReceivedEvent e;
 	Query cmd;
 	String [] argv;
