@@ -1,5 +1,7 @@
 package com.cruat.ildque.bot.utilities;
 
+import com.cruat.ildque.bot.exceptions.IldqueRuntimeException;
+
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.util.DiscordException;
@@ -27,7 +29,7 @@ public class DiscordHelper {
 		} 
 		catch (DiscordException e) {
 			String err = "Unable to send msg";
-			throw new RuntimeException(err, e); 
+			throw new IldqueRuntimeException(err, e); 
 		}
 	}
 	
