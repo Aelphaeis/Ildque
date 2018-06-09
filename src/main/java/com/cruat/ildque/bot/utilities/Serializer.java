@@ -42,7 +42,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-//TODO Allow for multiple classes to be inserted into serializer.
 public final class Serializer {
 	private static final Logger logger = LoggerFactory
 			.getLogger(Serializer.class);
