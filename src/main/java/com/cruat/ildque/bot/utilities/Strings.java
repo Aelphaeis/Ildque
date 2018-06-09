@@ -5,72 +5,109 @@ import java.util.StringTokenizer;
 
 public class Strings {
 	/**
+	 * Checks to see if an a string is null or empty.
+	 * @param value
+	 * @return
+	 */
+	public static boolean isBlank(String value){
+		return (value == null || value.trim().isEmpty());
+	}
+	/**
 	 * Crack a command line.
 	 * @param toProcess the command line to process.
 	 * @return the command line broken into strings.
 	 * An empty or null toProcess parameter results in a zero sized array.
-	 * @author Stefan Bodewig
 	 */
 	public static String[] translateCommandline(String toProcess) {
-		if (toProcess == null || toProcess.length() == 0) {
-			//no command? no string
-			return new String[0];
+		return new CommandTranslator(toProcess).translate();
+	}
+	
+	
+	private static class CommandTranslator {
+		enum ParseState{
+			NORMAL,
+			SINGLE,
+			DOUBLE;
 		}
-		// parse with a simple finite state machine
+		final String input;
 
-		final int normal = 0;
-		final int inQuote = 1;
-		final int inDoubleQuote = 2;
-		int state = normal;
-		final StringTokenizer tok = new StringTokenizer(toProcess, "\"\' ", true);
-		final ArrayList<String> result = new ArrayList<>();
-		final StringBuilder current = new StringBuilder();
-		boolean lastTokenHasBeenQuoted = false;
-
-		while (tok.hasMoreTokens()) {
-			String nextTok = tok.nextToken();
-			switch (state) {
-			case inQuote:
-				if ("\'".equals(nextTok)) {
-					lastTokenHasBeenQuoted = true;
-					state = normal;
-				} else {
-					current.append(nextTok);
+		ArrayList<String> result = new ArrayList<>();
+		
+		StringTokenizer tok;
+		StringBuilder curr ;
+		ParseState state;
+		boolean quoted;
+		
+		public CommandTranslator(String i) {
+			tok = new StringTokenizer(isBlank(i)? "" : i, "\"' ", true);
+			curr = new StringBuilder();
+			state = ParseState.NORMAL;
+			quoted = false;
+			input = i;
+		}
+		
+		public String[] translate() {
+			return isBlank(input)? new String[0] : parse();
+		}
+		
+		String[] parse() {
+			
+			while(tok.hasMoreTokens()) {
+				String next = tok.nextToken();
+				switch(state) {
+					case SINGLE:
+						handleQuote(next,"'");
+						break;
+					case DOUBLE:
+						handleQuote(next,"\"");
+						break;
+					default:
+						handleNoQuote(next);
+						break;
 				}
-				break;
-			case inDoubleQuote:
-				if ("\"".equals(nextTok)) {
-					lastTokenHasBeenQuoted = true;
-					state = normal;
-				} else {
-					current.append(nextTok);
-				}
-				break;
-			default:
-				if ("\'".equals(nextTok)) {
-					state = inQuote;
-				} else if ("\"".equals(nextTok)) {
-					state = inDoubleQuote;
-				} else if (" ".equals(nextTok)) {
-					if (lastTokenHasBeenQuoted || current.length() != 0) {
-						result.add(current.toString());
-						current.setLength(0);
-					}
-				} else {
-					current.append(nextTok);
-				}
-				lastTokenHasBeenQuoted = false;
-				break;
+			}
+			if(quoted || curr.length() != 0) {
+				result.add(curr.toString());
+			}
+			validateResult();
+		
+			return result.toArray(new String[result.size()]);
+		}
+		
+		void handleQuote(String token, String expect) {
+			if(expect.equals(token)) {
+				quoted = true;
+				state = ParseState.NORMAL;
+			}
+			else {
+				curr.append(token);
 			}
 		}
-		if (lastTokenHasBeenQuoted || current.length() != 0) {
-			result.add(current.toString());
+		
+		void handleNoQuote(String token) {
+			if ("\'".equals(token)) {
+				state = ParseState.SINGLE;
+			} else if ("\"".equals(token)) {
+				state = ParseState.DOUBLE;
+			} else if (" ".equals(token)) {
+				if (quoted || curr.length() != 0) {
+					result.add(curr.toString());
+					curr.setLength(0);
+				}
+			} else {
+				curr.append(token);
+			}
+			quoted = false;
 		}
-		if (state == inQuote || state == inDoubleQuote) {
-			throw new IllegalArgumentException("unbalanced quotes in " + toProcess);
+		
+		void validateResult() {
+			if(state != ParseState.NORMAL) {
+				String err = "unbalance quotes in " + input;
+				throw new IllegalArgumentException(err);
+			}
 		}
-		return result.toArray(new String[result.size()]);
 	}
+	
 	
 	private Strings() {
 		//utility class
