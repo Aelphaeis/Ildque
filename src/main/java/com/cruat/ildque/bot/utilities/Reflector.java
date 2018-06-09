@@ -47,7 +47,6 @@ public final class Reflector {
 	 * @param clazz
 	 * @return
 	 */
-	//TODO construction with params
 	public static <T> T initParamCtor(Class<T> clazz) {
 		try {
 			Constructor<?> ctor = clazz.getDeclaredConstructor();
