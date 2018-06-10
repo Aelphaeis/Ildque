@@ -54,6 +54,7 @@ public class Query extends Command {
 			conf.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
 			conf.setProperty(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 			conf.setProperty(AvailableSettings.URL, "jdbc:h2:mem:queryable");
+			conf.setProperty(AvailableSettings.HBM2DDL_AUTO, "create-drop");
 			conf.setProperty(AvailableSettings.DRIVER, "org.h2.Driver");
 			conf.setProperty(AvailableSettings.USER, "querier");
 			conf.setProperty(AvailableSettings.AUTOCOMMIT, "true");
