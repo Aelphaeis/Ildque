@@ -18,6 +18,7 @@ import com.cruat.ildque.util.DiscordHelper;
 import com.cruat.ildque.util.Serializer;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.IGuild;
 
 public class Query extends Command {
 	private static final Logger logger = LogManager.getLogger();
@@ -25,33 +26,32 @@ public class Query extends Command {
 	SessionFactory factory;
 	public Query() {
 		factory = createSessionFactory();
-		stubServer();
-		
 	}
 
 	@Override
 	public void execute(MessageReceivedEvent e, String[] argv) throws CommandException {
-		DiscordHelper.sendMessage(e, "hello world");
+		loadServers();
+		
+		String prefix = getContext().getConfiguration().getPrefix() + " " + getName();
+		String content = e.getMessage().getContent().substring(prefix.length() + 1);
+		
 		try (Session session = factory.openSession()){
-			for(Server s : session.createQuery("from Server", Server.class).list()) {
-				DiscordHelper.sendMessage(e, Serializer.serialize(s));
+			StringBuilder builder = new StringBuilder();
+			for(Object s : session.createQuery(content).list()) {
+				builder.append(Serializer.serialize(s));
 			}
+			DiscordHelper.sendMessage(e, builder.toString());
 		} catch (JAXBException e1) {
 			throw new IldqueRuntimeException(e1);
 		}
 	}
 	
-	//TODO remove me later
-	public void stubServer() {
-		Server s = new Server();
-		s.name = "server";
-		s.icon = "icon";
-		s.iconUrl = "url";
-		s.id = "id";
-		
+	void loadServers() {
 		try (Session session = factory.openSession()){
 			Transaction t = session.beginTransaction();
-			session.persist(s);
+			for(IGuild guild : getContext().getClient().getGuilds()) {
+				session.persist(new Server(guild));
+			}
 			t.commit();	
 		}
 	}
