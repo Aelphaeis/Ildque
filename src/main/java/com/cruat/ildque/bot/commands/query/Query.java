@@ -31,6 +31,7 @@ public class Query extends Command {
 		//TODO implement me
 	}
 	
+	//TODO remove me later
 	public void stubServer() {
 		Server s = new Server();
 		s.name = "server";
