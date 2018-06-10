@@ -31,18 +31,19 @@ public class Query extends Command {
 			Configuration conf = new Configuration();
 			conf.addPackage(Command.class.getPackage().getName());
 			
-			conf.setProperty(AvailableSettings.JPA_JDBC_DRIVER, "org.h2.Driver");
+			conf.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
 			conf.setProperty(AvailableSettings.JPA_JDBC_URL, "jdbc:h2:mem:queryable");
+			conf.setProperty(AvailableSettings.JPA_JDBC_DRIVER, "org.h2.Driver");
 			conf.setProperty(AvailableSettings.JPA_JDBC_USER, "querier");
 			conf.setProperty(AvailableSettings.JPA_JDBC_PASSWORD, "");
-			conf.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
 			conf.setProperty(AvailableSettings.SHOW_SQL, "true");
+			
+			conf.addAnnotatedClass(Server.class);
 			
 			logger.info("Creating sessionFactory");
 			long start = System.currentTimeMillis();
 			
 			factory = conf.buildSessionFactory();
-			
 			
 			long end = System.currentTimeMillis();
 			long duration = end - start;
