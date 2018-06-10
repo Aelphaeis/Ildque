@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.bot.cmd;
 
 import org.apache.commons.cli.Options;
 

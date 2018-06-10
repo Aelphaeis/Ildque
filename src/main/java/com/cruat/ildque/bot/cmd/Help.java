@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.bot.cmd;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

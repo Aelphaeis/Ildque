@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.bot.cmd;
 
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 

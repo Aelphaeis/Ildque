@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands.query;
+package com.cruat.ildque.bot.cmd.query;
 
 
 import javax.xml.bind.JAXBException;
@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
-import com.cruat.ildque.bot.commands.Command;
+import com.cruat.ildque.bot.cmd.Command;
 import com.cruat.ildque.bot.exceptions.CommandException;
 import com.cruat.ildque.bot.exceptions.IldqueRuntimeException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;

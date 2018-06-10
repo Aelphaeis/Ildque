@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.cruat.ildque.bot.commands.Help;
+import com.cruat.ildque.bot.cmd.Help;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BotCommandHandlerTest {

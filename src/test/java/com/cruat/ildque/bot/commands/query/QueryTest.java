@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cruat.ildque.bot.BotCommandHandler;
+import com.cruat.ildque.bot.cmd.query.Query;
 import com.cruat.ildque.bot.exceptions.CommandException;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;

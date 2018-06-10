@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.cruat.ildque.bot.BotCommandHandler;
+import com.cruat.ildque.bot.cmd.Site;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import test.util.MessageReceivedEventBuilder;

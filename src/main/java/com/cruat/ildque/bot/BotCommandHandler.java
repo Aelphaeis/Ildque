@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.bot.commands.Command;
+import com.cruat.ildque.bot.cmd.Command;
 import com.cruat.ildque.bot.exceptions.CommandException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
 import com.cruat.ildque.bot.utilities.Reflector;

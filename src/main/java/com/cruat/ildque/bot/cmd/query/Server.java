@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands.query;
+package com.cruat.ildque.bot.cmd.query;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

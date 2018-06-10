@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.bot.cmd;
 
 import java.util.List;
 import java.util.stream.Collectors;
