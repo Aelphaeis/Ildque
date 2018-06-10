@@ -38,6 +38,10 @@ public class DiscordHelper {
 		sendMessage(dest, msg);
 	}
 	
+	public static void sendCodeMessage(MessageReceivedEvent evt, String msg) {
+		sendMessage(evt, "```" + msg + "```");
+	}
+	
 	private DiscordHelper() {
 		
 	}
