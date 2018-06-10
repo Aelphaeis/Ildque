@@ -7,7 +7,7 @@ import javax.servlet.ServletContextListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.config.Configuration;
+import com.cruat.ildque.cfg.Configuration;
 
 /**
  * Application Lifecycle Listener implementation class SystemIntegrityListener

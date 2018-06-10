@@ -1,4 +1,4 @@
-package com.cruat.ildque.config;
+package com.cruat.ildque.cfg;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
