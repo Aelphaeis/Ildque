@@ -25,29 +25,28 @@ public class MessageReceivedEventBuilder {
 				return null;
 			}
 		};
-		
 	}
-	
+
 	final MessageReceivedEvent event;
 	final IChannel channel;
-	
+
 	public MessageReceivedEventBuilder() {
 		channel = mock(IChannel.class);
 		event = mock(MessageReceivedEvent.class);
 		when(event.getMessage()).thenReturn(mock(IMessage.class));
 		when(event.getMessage().getChannel()).thenReturn(channel);
 	}
-	
+
 	public MessageReceivedEventBuilder content(String content) {
 		when(event.getMessage().getContent()).thenReturn(content);
 		return this;
-	} 
-	
+	}
+
 	public MessageReceivedEventBuilder onSendMessage(Answer<IMessage> ans) {
 		doAnswer(ans).when(channel).sendMessage(anyString());
 		return this;
 	}
-	
+
 	public MessageReceivedEvent build() {
 		return event;
 	}
