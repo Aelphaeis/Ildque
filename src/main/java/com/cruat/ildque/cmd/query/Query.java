@@ -40,7 +40,7 @@ public class Query extends Command {
 			for(Object s : session.createQuery(content).list()) {
 				builder.append(Serializer.serialize(s));
 			}
-			DiscordHelper.sendMessage(e, builder.toString());
+			DiscordHelper.sendCodeMessage(e, builder.toString());
 		} catch (JAXBException e1) {
 			throw new IldqueRuntimeException(e1);
 		}
