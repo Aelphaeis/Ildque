@@ -1,11 +1,11 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.cmd;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.cli.Option;
 
-import com.cruat.ildque.bot.exceptions.CommandException;
+import com.cruat.ildque.exceptions.CommandException;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IGuild;

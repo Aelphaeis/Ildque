@@ -1,9 +1,9 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.cmd;
 
 import org.apache.commons.cli.Options;
 
-import com.cruat.ildque.bot.BotCommand;
-import com.cruat.ildque.bot.Ildque;
+import com.cruat.ildque.BotCommand;
+import com.cruat.ildque.Ildque;
 
 public abstract class Command implements BotCommand{
 

@@ -1,8 +1,8 @@
-package com.cruat.ildque.bot;
+package com.cruat.ildque;
 
 import org.apache.commons.cli.Options;
 
-import com.cruat.ildque.bot.exceptions.CommandException;
+import com.cruat.ildque.exceptions.CommandException;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

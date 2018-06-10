@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot;
+package com.cruat.ildque;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.cruat.ildque.bot.commands.Help;
+import com.cruat.ildque.BotCommandHandler;
+import com.cruat.ildque.Ildque;
+import com.cruat.ildque.cmd.Help;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BotCommandHandlerTest {

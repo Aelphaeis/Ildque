@@ -1,9 +1,9 @@
-package com.cruat.ildque.bot;
+package com.cruat.ildque;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.config.Configuration;
+import com.cruat.ildque.cfg.Configuration;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;

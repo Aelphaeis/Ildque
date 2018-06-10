@@ -1,10 +1,12 @@
-package com.cruat.ildque.bot.utilities;
+package com.cruat.ildque.util;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.Test;
+
+import com.cruat.ildque.util.Reflector;
 
 public class ReflectorTest {
 

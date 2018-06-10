@@ -1,4 +1,4 @@
-package com.cruat.ildque.config;
+package com.cruat.ildque.cfg;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.bot.utilities.Serializer;
+import com.cruat.ildque.util.Serializer;
 
 @XmlRootElement
 public class Configuration {

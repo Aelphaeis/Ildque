@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot;
+package com.cruat.ildque;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -9,12 +9,12 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.bot.commands.Command;
-import com.cruat.ildque.bot.exceptions.CommandException;
-import com.cruat.ildque.bot.utilities.DiscordHelper;
-import com.cruat.ildque.bot.utilities.Reflector;
-import com.cruat.ildque.bot.utilities.Strings;
-import com.cruat.ildque.config.Configuration;
+import com.cruat.ildque.cfg.Configuration;
+import com.cruat.ildque.cmd.Command;
+import com.cruat.ildque.exceptions.CommandException;
+import com.cruat.ildque.util.DiscordHelper;
+import com.cruat.ildque.util.Reflector;
+import com.cruat.ildque.util.Strings;
 
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;

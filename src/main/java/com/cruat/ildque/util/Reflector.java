@@ -1,7 +1,9 @@
-package com.cruat.ildque.bot.utilities;
+package com.cruat.ildque.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -17,6 +19,44 @@ public final class Reflector {
 
 	private static final String CLASS_SUFFIX = ".class";
 
+	
+	/**
+	 * Determines whether or not class can be instantiated via reflection
+	 * @param cls
+	 * @return
+	 */
+	public static boolean isInstantiable(Class<?> cls) {
+		boolean isInstantiable = !(cls == null
+				|| String.class.isAssignableFrom(cls) 
+				|| Integer.class.isAssignableFrom(cls)
+				|| cls.isArray() 
+				|| cls.isInterface()
+				|| cls.isPrimitive()
+				|| Modifier.isAbstract(cls.getModifiers()));
+		
+		if(!isInstantiable) {
+			return false;
+		}
+		else {
+			Constructor<?>[] ctors = cls.getConstructors();
+			return ctors.length > 0;
+		}
+	}
+	
+	/**
+	 * @param clazz
+	 * @return
+	 */
+	public static <T> T initParamCtor(Class<T> clazz) {
+		try {
+			Constructor<?> ctor = clazz.getDeclaredConstructor();
+			return clazz.cast(ctor.newInstance());
+		} 
+		catch (Exception e) {
+			return null;
+		}
+	}
+	
 	/**
 	 * Given a package this method returns all classes contained in that package
 	 * 
@@ -27,6 +67,8 @@ public final class Reflector {
 		return getClassesForPackage(pkg, ClassLoader.getSystemClassLoader());
 	}
 
+	
+	
 	/**
 	 * Given a package name and class loader this method returns all classes
 	 * contained in package.
@@ -157,10 +199,15 @@ public final class Reflector {
 		}
 		return classes;
 	}
+	
 
 	public static class ReflectorException extends RuntimeException {
 
 		private static final long serialVersionUID = 909384213793458361L;
+
+		public ReflectorException() {
+			super();
+		}
 
 		public ReflectorException(String message) {
 			super(message);
@@ -170,5 +217,13 @@ public final class Reflector {
 			super(message, cause);
 		}
 
+		public ReflectorException(Throwable cause) {
+			super(cause);
+		}
+
+		protected ReflectorException(String message, Throwable cause, boolean enableSuppression,
+				boolean writableStackTrace) {
+			super(message, cause, enableSuppression, writableStackTrace);
+		}
 	}
 }

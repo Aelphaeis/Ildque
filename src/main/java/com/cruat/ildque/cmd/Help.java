@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands;
+package com.cruat.ildque.cmd;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -13,8 +13,8 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.bot.BotCommand;
-import com.cruat.ildque.bot.utilities.DiscordHelper;
+import com.cruat.ildque.BotCommand;
+import com.cruat.ildque.util.DiscordHelper;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

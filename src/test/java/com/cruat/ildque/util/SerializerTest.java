@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.utilities;
+package com.cruat.ildque.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import com.cruat.ildque.bot.utilities.Serializer;
+import com.cruat.ildque.util.Serializer;
 
 public class SerializerTest {
 
