@@ -1,8 +1,11 @@
 package com.cruat.ildque.bot.commands.query;
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
@@ -18,6 +21,8 @@ public class Query extends Command {
 	SessionFactory factory;
 	public Query() {
 		factory = createSessionFactory();
+		stubServer();
+		
 	}
 
 	@Override
@@ -26,16 +31,31 @@ public class Query extends Command {
 		//TODO implement me
 	}
 	
+	public void stubServer() {
+		Server s = new Server();
+		s.name = "server";
+		s.icon = "icon";
+		s.iconUrl = "url";
+		s.id = "id";
+		
+		try (Session session = factory.openSession()){
+			Transaction t = session.beginTransaction();
+			session.persist(s);
+			t.commit();	
+		}
+	}
+	
 	public SessionFactory createSessionFactory() {
 		try{
 			Configuration conf = new Configuration();
 			conf.addPackage(Command.class.getPackage().getName());
 			
 			conf.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
-			conf.setProperty(AvailableSettings.JPA_JDBC_URL, "jdbc:h2:mem:queryable");
-			conf.setProperty(AvailableSettings.JPA_JDBC_DRIVER, "org.h2.Driver");
-			conf.setProperty(AvailableSettings.JPA_JDBC_USER, "querier");
-			conf.setProperty(AvailableSettings.JPA_JDBC_PASSWORD, "");
+			conf.setProperty(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+			conf.setProperty(AvailableSettings.URL, "jdbc:h2:mem:queryable");
+			conf.setProperty(AvailableSettings.DRIVER, "org.h2.Driver");
+			conf.setProperty(AvailableSettings.USER, "querier");
+			conf.setProperty(AvailableSettings.AUTOCOMMIT, "true");
 			conf.setProperty(AvailableSettings.SHOW_SQL, "true");
 			
 			conf.addAnnotatedClass(Server.class);
