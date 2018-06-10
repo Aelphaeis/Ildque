@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.utilities;
+package com.cruat.ildque.bot.util;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;

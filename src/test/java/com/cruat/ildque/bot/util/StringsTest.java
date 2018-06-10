@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.utilities;
+package com.cruat.ildque.bot.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+
+import com.cruat.ildque.bot.util.Strings;
 
 public class StringsTest {
 	private static final Logger logger = LogManager.getLogger();

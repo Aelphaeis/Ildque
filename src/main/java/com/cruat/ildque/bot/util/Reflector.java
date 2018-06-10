@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.utilities;
+package com.cruat.ildque.bot.util;
 
 import java.io.File;
 import java.io.IOException;

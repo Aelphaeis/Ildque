@@ -14,8 +14,8 @@ import org.hibernate.cfg.Configuration;
 import com.cruat.ildque.bot.cmd.Command;
 import com.cruat.ildque.bot.exceptions.CommandException;
 import com.cruat.ildque.bot.exceptions.IldqueRuntimeException;
-import com.cruat.ildque.bot.utilities.DiscordHelper;
-import com.cruat.ildque.bot.utilities.Serializer;
+import com.cruat.ildque.bot.util.DiscordHelper;
+import com.cruat.ildque.bot.util.Serializer;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

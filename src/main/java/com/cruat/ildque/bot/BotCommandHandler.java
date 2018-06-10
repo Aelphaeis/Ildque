@@ -11,9 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.cruat.ildque.bot.cmd.Command;
 import com.cruat.ildque.bot.exceptions.CommandException;
-import com.cruat.ildque.bot.utilities.DiscordHelper;
-import com.cruat.ildque.bot.utilities.Reflector;
-import com.cruat.ildque.bot.utilities.Strings;
+import com.cruat.ildque.bot.util.DiscordHelper;
+import com.cruat.ildque.bot.util.Reflector;
+import com.cruat.ildque.bot.util.Strings;
 import com.cruat.ildque.cfg.Configuration;
 
 import sx.blah.discord.api.events.IListener;

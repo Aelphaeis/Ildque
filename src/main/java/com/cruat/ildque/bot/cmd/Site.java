@@ -1,6 +1,6 @@
 package com.cruat.ildque.bot.cmd;
 
-import com.cruat.ildque.bot.utilities.DiscordHelper;
+import com.cruat.ildque.bot.util.DiscordHelper;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

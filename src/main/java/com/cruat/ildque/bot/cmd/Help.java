@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cruat.ildque.bot.BotCommand;
-import com.cruat.ildque.bot.utilities.DiscordHelper;
+import com.cruat.ildque.bot.util.DiscordHelper;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

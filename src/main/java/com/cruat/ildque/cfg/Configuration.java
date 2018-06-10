@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.ildque.bot.utilities.Serializer;
+import com.cruat.ildque.bot.util.Serializer;
 
 @XmlRootElement
 public class Configuration {
