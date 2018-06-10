@@ -1,4 +1,4 @@
-package com.cruat.ildque.bot.commands.query;
+package com.cruat.ildque.bot.cmd.query;
 
 import org.junit.Before;
 import org.junit.Test;
