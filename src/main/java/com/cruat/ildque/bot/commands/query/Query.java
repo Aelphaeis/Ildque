@@ -1,6 +1,8 @@
 package com.cruat.ildque.bot.commands.query;
 
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -11,7 +13,9 @@ import org.hibernate.cfg.Configuration;
 
 import com.cruat.ildque.bot.commands.Command;
 import com.cruat.ildque.bot.exceptions.CommandException;
+import com.cruat.ildque.bot.exceptions.IldqueRuntimeException;
 import com.cruat.ildque.bot.utilities.DiscordHelper;
+import com.cruat.ildque.bot.utilities.Serializer;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
@@ -28,7 +32,13 @@ public class Query extends Command {
 	@Override
 	public void execute(MessageReceivedEvent e, String[] argv) throws CommandException {
 		DiscordHelper.sendMessage(e, "hello world");
-		//TODO implement me
+		try (Session session = factory.openSession()){
+			for(Server s : session.createQuery("from Server", Server.class).list()) {
+				DiscordHelper.sendMessage(e, Serializer.serialize(s));
+			}
+		} catch (JAXBException e1) {
+			throw new IldqueRuntimeException(e1);
+		}
 	}
 	
 	//TODO remove me later
