@@ -3,7 +3,7 @@ package com.cruat.ildque.init;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.cruat.ildque.bot.Ildque;
+import com.cruat.ildque.Ildque;
 import com.cruat.ildque.cfg.Configuration;
 
 /**
