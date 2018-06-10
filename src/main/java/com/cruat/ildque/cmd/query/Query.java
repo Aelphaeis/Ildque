@@ -1,6 +1,5 @@
 package com.cruat.ildque.cmd.query;
 
-
 import javax.xml.bind.JAXBException;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,8 +21,9 @@ import sx.blah.discord.handle.obj.IGuild;
 
 public class Query extends Command {
 	private static final Logger logger = LogManager.getLogger();
-	
+
 	SessionFactory factory;
+
 	public Query() {
 		factory = createSessionFactory();
 	}
@@ -31,13 +31,13 @@ public class Query extends Command {
 	@Override
 	public void execute(MessageReceivedEvent e, String[] argv) throws CommandException {
 		loadServers();
-		
+
 		String prefix = getContext().getConfiguration().getPrefix() + " " + getName();
 		String content = e.getMessage().getContent().substring(prefix.length() + 1);
-		
-		try (Session session = factory.openSession()){
+
+		try (Session session = factory.openSession()) {
 			StringBuilder builder = new StringBuilder();
-			for(Object s : session.createQuery(content).list()) {
+			for (Object s : session.createQuery(content).list()) {
 				builder.append(Serializer.serialize(s));
 			}
 			DiscordHelper.sendCodeMessage(e, builder.toString());
@@ -45,22 +45,22 @@ public class Query extends Command {
 			throw new IldqueRuntimeException(e1);
 		}
 	}
-	
+
 	void loadServers() {
-		try (Session session = factory.openSession()){
+		try (Session session = factory.openSession()) {
 			Transaction t = session.beginTransaction();
-			for(IGuild guild : getContext().getClient().getGuilds()) {
+			for (IGuild guild : getContext().getClient().getGuilds()) {
 				session.persist(new Server(guild));
 			}
-			t.commit();	
+			t.commit();
 		}
 	}
-	
+
 	public SessionFactory createSessionFactory() {
-		try{
+		try {
 			Configuration conf = new Configuration();
 			conf.addPackage(Command.class.getPackage().getName());
-			
+
 			conf.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
 			conf.setProperty(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 			conf.setProperty(AvailableSettings.URL, "jdbc:h2:mem:queryable");
@@ -69,22 +69,21 @@ public class Query extends Command {
 			conf.setProperty(AvailableSettings.USER, "querier");
 			conf.setProperty(AvailableSettings.AUTOCOMMIT, "true");
 			conf.setProperty(AvailableSettings.SHOW_SQL, "true");
-			
+
 			conf.addAnnotatedClass(Server.class);
-			
+
 			logger.info("Creating sessionFactory");
 			long start = System.currentTimeMillis();
-			
+
 			factory = conf.buildSessionFactory();
-			
+
 			long end = System.currentTimeMillis();
 			long duration = end - start;
 			String msg = "sessionFactory successful created in {} millseconds";
 			logger.info(msg, duration);
-			
+
 			return factory;
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			String msg = "Unable to instantisate hibernate";
 			logger.error(msg, e);
 			throw new IllegalStateException(msg);
