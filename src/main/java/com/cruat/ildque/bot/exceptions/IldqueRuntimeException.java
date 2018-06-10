@@ -10,4 +10,8 @@ public class IldqueRuntimeException extends RuntimeException {
 	public IldqueRuntimeException(String message, Throwable cause) {
 		super(message, cause);
 	}
+
+	public IldqueRuntimeException(Throwable cause) {
+		super(cause);
+	}
 }
