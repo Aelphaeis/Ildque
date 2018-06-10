@@ -11,6 +11,7 @@
 		</File>
 	</Appenders>
 	<Loggers>
+		<Logger name="org.hibernate" level="info"/>
 		<Root level="trace">
 			<AppenderRef ref="console" />
 		</Root>
