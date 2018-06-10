@@ -23,7 +23,8 @@ public class Query extends Command {
 	private static final Logger logger = LogManager.getLogger();
 
 	SessionFactory factory;
-
+	boolean loaded = false;
+	
 	public Query() {
 		factory = createSessionFactory();
 	}
@@ -47,12 +48,15 @@ public class Query extends Command {
 	}
 
 	void loadServers() {
-		try (Session session = factory.openSession()) {
-			Transaction t = session.beginTransaction();
-			for (IGuild guild : getContext().getClient().getGuilds()) {
-				session.persist(new Server(guild));
+		if(!loaded) {
+			try (Session session = factory.openSession()) {
+				Transaction t = session.beginTransaction();
+				for (IGuild guild : getContext().getClient().getGuilds()) {
+					session.persist(new Server(guild));
+				}
+				t.commit();
 			}
-			t.commit();
+			loaded = true;
 		}
 	}
 
