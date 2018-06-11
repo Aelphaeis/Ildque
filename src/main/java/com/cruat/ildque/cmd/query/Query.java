@@ -10,8 +10,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
+import com.cruat.ildque.Ildque;
 import com.cruat.ildque.cmd.Command;
-import com.cruat.ildque.exceptions.CommandException;
 import com.cruat.ildque.exceptions.IldqueRuntimeException;
 import com.cruat.ildque.util.DiscordHelper;
 import com.cruat.ildque.util.Reflector;
@@ -24,18 +24,17 @@ public class Query extends Command {
 	private static final Logger logger = LogManager.getLogger();
 
 	SessionFactory factory;
-	boolean loaded = false;
 	
 	public Query() {
 		factory = createSessionFactory();
 	}
 
 	@Override
-	public void execute(MessageReceivedEvent e, String[] argv) throws CommandException {
-		loadServers();
-
-		String prefix = getContext().getConfiguration().getPrefix() + " " + getName();
-		String content = e.getMessage().getContent().substring(prefix.length() + 1);
+	public void execute(MessageReceivedEvent e, String[] argv) {
+		String prefix = getContext().getConfiguration().getPrefix();
+		prefix += " " + getName();
+		String content = e.getMessage().getContent();
+		content = content.substring(prefix.length() + 1);
 
 		try (Session session = factory.openSession()) {
 			StringBuilder builder = new StringBuilder();
@@ -48,18 +47,6 @@ public class Query extends Command {
 		}
 	}
 
-	void loadServers() {
-		if(!loaded) {
-			try (Session session = factory.openSession()) {
-				Transaction t = session.beginTransaction();
-				for (IGuild guild : getContext().getClient().getGuilds()) {
-					session.persist(new Server(guild));
-				}
-				t.commit();
-			}
-			loaded = true;
-		}
-	}
 
 	public SessionFactory createSessionFactory() {
 		try {
@@ -97,5 +84,17 @@ public class Query extends Command {
 			logger.error(msg, e);
 			throw new IllegalStateException(msg);
 		}
+	}
+	
+	@Override
+	public void setContext(Ildque context) {
+		try (Session session = factory.openSession()) {
+			Transaction t = session.beginTransaction();
+			for (IGuild guild : context.getClient().getGuilds()) {
+				session.persist(new Server(guild));
+			}
+			t.commit();
+		}
+		super.setContext(context);
 	}
 }
