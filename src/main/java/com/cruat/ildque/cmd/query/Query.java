@@ -14,6 +14,7 @@ import com.cruat.ildque.cmd.Command;
 import com.cruat.ildque.exceptions.CommandException;
 import com.cruat.ildque.exceptions.IldqueRuntimeException;
 import com.cruat.ildque.util.DiscordHelper;
+import com.cruat.ildque.util.Reflector;
 import com.cruat.ildque.util.Serializer;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -74,7 +75,11 @@ public class Query extends Command {
 			conf.setProperty(AvailableSettings.AUTOCOMMIT, "true");
 			conf.setProperty(AvailableSettings.SHOW_SQL, "true");
 
-			conf.addAnnotatedClass(Server.class);
+			
+			Package pkg = Query.class.getPackage();
+			Reflector.getClassesForPackage(pkg).stream()
+				.filter(Queryable.class::isAssignableFrom)
+				.forEach(conf::addAnnotatedClass);
 
 			logger.info("Creating sessionFactory");
 			long start = System.currentTimeMillis();
